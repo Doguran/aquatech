@@ -65,32 +65,36 @@ var config = {
 };
 
 
-gulp.task('vendorJs:build', function () {
+gulp.task('vendorJs:build', function (done) {
     gulp.src( mainBowerFiles('**/*.js') ) //Выберем файлы по нужному пути
         .pipe(gulp.dest(path.vendor.js)) //Выплюнем готовый файл в app
+    done();
 });
 
-gulp.task('vendorCss:build', function () {
+gulp.task('vendorCss:build', function (done) {
     gulp.src( mainBowerFiles('**/*.css') ) //Выберем файлы по нужному пути
         .pipe(gulp.dest(path.vendor.css)) //И в app
+    done();
 });
 
-gulp.task('php:build', function () {
+gulp.task('php:build', function (done) {
     gulp.src(path.app.php) //Выберем файлы по нужному пути
         .pipe(gulp.dest(path.dist.php)) //Выплюнем их в папку build
         .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
+    done();
 });
 
-gulp.task('html:build', function () {
+gulp.task('html:build', function (done) {
     gulp.src(path.app.html) //Выберем файлы по нужному пути
         .pipe(revReplace({
             manifest: gulp.src('dist/manifest/css.json')
         }))
         .pipe(gulp.dest(path.dist.html)) //Выплюнем их в папку build
         .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
+    done();
 });
 
-gulp.task('js:build', function () {
+gulp.task('js:build', function (done) {
     gulp.src(path.app.js) //Найдем наш main файл
         .pipe(rigger()) //Прогоним через rigger он импортирует указаные там файлы
         .pipe(sourcemaps.init()) //Инициализируем sourcemap
@@ -98,10 +102,11 @@ gulp.task('js:build', function () {
         .pipe(sourcemaps.write('.')) //Пропишем карты
         .pipe(gulp.dest(path.dist.js)) //Выплюнем готовый файл в build
         .pipe(reload({stream: true})); //И перезагрузим сервер
+    done();
 });
 
 
-gulp.task('scss:build', function () {
+gulp.task('scss:build', function (done) {
     gulp.src(path.app.scss) //Выберем наш main.scss
         .pipe(sourcemaps.init()) //То же самое что и с js
         .pipe(sass()) //Скомпилируем
@@ -113,19 +118,21 @@ gulp.task('scss:build', function () {
         //.pipe(rev.manifest('css.json'))// укажем это перемеинование в файле css.json
         //.pipe(gulp.dest('dist/manifest'))// который положем в папку manifest
         .pipe(reload({stream: true}));
+    done();
 
 });
 
 
 
-gulp.task('css:build', function () {
+gulp.task('css:build', function (done) {
     gulp.src(path.app.css) //Выберем наш main.css
         .pipe(sourcemaps.init()) //То же самое что и с js
         .pipe(gulp.dest(path.dist.css)) //И в build
         .pipe(reload({stream: true}));
+    done();
 });
 
-gulp.task('image:build', function () {
+gulp.task('image:build', function (done) {
     gulp.src(path.app.img) //Выберем наши картинки
         .pipe(newer(path.dist.img))
         .pipe(imagemin({ //Сожмем их
@@ -136,15 +143,17 @@ gulp.task('image:build', function () {
         }))
         .pipe(gulp.dest(path.dist.img)) //И бросим в build
         .pipe(reload({stream: true}));
+    done();
 });
 
-gulp.task('fonts:build', function() {
+gulp.task('fonts:build', function(done) {
     gulp.src(path.app.fonts)
         .pipe(gulp.dest(path.dist.fonts))
+    done();
 });
 
 
-gulp.task('build', [
+gulp.task('build', gulp.series(
     // 'vendorCss:build',
     // 'vendorJs:build',
     // 'php:build',
@@ -154,9 +163,9 @@ gulp.task('build', [
     'css:build',
     'fonts:build',
     'image:build'
-]);
+));
 
-gulp.task('watch', function(){
+gulp.task('watch', function(done){
     // watch([path.watch.php], function(event, cb) {
     //     gulp.start('php:build');
     // });
@@ -178,10 +187,12 @@ gulp.task('watch', function(){
     watch([path.watch.fonts], function(event, cb) {
         gulp.start('fonts:build');
     });
+    done();
 });
 
-gulp.task('webserver', function () {
+gulp.task('webserver', function (done) {
     browserSync.init(config);
+    done();
 });
 
 gulp.task('clean', function (cb) {
@@ -190,4 +201,4 @@ gulp.task('clean', function (cb) {
 
 
 // gulp.task('default', ['build', 'webserver', 'watch']);
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', gulp.series('build', 'watch'));
