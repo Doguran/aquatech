@@ -5,11 +5,7 @@
 /package-lock.json
 node_modules/
 vendor/
-dist/application/views/css/
-dist/application/views/js/
-dist/application/views/img/
-<<<<<<< HEAD
-dist/application/views/fonts/
-=======
-dist/application/views/fonts/
->>>>>>> origin/master
+dist/application/views/default/css/
+dist/application/views/default/js/
+dist/application/views/default/img/
+dist/application/views/default/fonts/
