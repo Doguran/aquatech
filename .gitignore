@@ -1,2 +1,10 @@
 .idea/
 /gulpfile.js
+/composer.json
+/package.json
+node_modules/
+vendor/
+dist/application/views/css/
+dist/application/views/js/
+dist/application/views/img/
+dist/application/views/fonts/

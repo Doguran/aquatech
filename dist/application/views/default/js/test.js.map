@@ -1,1 +1,1 @@
-{"version":3,"sources":["test.js"],"names":["reload","browserSync"],"mappings":"AAAA,YACA,IAAIA,QAASC,YAAYD","file":"test.js","sourcesContent":["'use strict';\r\nvar reload = browserSync.reload;"]}
+{"version":3,"sources":["test.js"],"names":["reload","browserSync","n","a"],"mappings":"AAAA,YACA,IAAIA,QAASC,YAAYD,OACrBE,EAAI,KACJC,EAAI","file":"test.js","sourcesContent":["'use strict';\r\nvar reload = browserSync.reload;\r\nvar n = null;\r\nvar a = 0;"]}
