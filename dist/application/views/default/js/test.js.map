@@ -1,1 +1,0 @@
-{"version":3,"sources":["test.js"],"names":["reload","browserSync"],"mappings":"AAAA,YACA,IAAIA,QAASC,YAAYD","file":"test.js","sourcesContent":["'use strict';\r\nvar reload = browserSync.reload;"]}
