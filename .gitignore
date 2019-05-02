@@ -2,9 +2,14 @@
 /gulpfile.js
 /composer.json
 /package.json
+/package-lock.json
 node_modules/
 vendor/
 dist/application/views/css/
 dist/application/views/js/
 dist/application/views/img/
+<<<<<<< HEAD
 dist/application/views/fonts/
+=======
+dist/application/views/fonts/
+>>>>>>> origin/master
