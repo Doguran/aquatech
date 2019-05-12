@@ -1,1 +1,10 @@
 @import "node_modules/bootstrap/scss/bootstrap";
+header .container {
+  border-bottom: 2px solid #BD3C46;
+}
+header p {
+  color: #BD3C46;
+}
+header {
+  margin-bottom: 3rem;
+}
