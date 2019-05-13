@@ -8,3 +8,25 @@ header p {
 header {
   margin-bottom: 3rem;
 }
+.table {
+  thead th {
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+table.exel{
+  font-size: .8rem;
+}
+table img{
+  max-height: 50px;
+  max-width: 50px;
+  margin: 0 auto;
+  display: block;
+}
+footer {
+  margin-top: 5rem;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  background: #474747;
+  color: #A4A1A1;
+}
