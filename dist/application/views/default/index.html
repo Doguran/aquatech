@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/fancybox.css">
+    <link rel="stylesheet" href="css/tablesaw.css">
     <link rel="stylesheet" href="css/main.css">
     <title>Hello, world!</title>
 </head>
@@ -101,10 +102,10 @@
     </div>
     <div class="container">
         <div class="table-responsive">
-        <table class="table table-bordered table-sm exel">
+        <table data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-mode-switch data-tablesaw-mode="swipe" class="table table-bordered table-sm exel tablesaw tablesaw-stack" data-tablesaw-mode = "stack">
             <thead>
             <tr class="bg-warning">
-                <th rowspan="2" scope="col">Арт.</th>
+                <th rowspan="2" scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Арт.</th>
                 <th rowspan="2" scope="col">Наименование</th>
                 <th rowspan="2" scope="col">Описание</th>
                 <th rowspan="2" scope="col">Фото</th>
@@ -180,5 +181,6 @@
 </footer>
 <script src="js/main.js"></script>
 <script src="js/fancybox.js"></script>
+<script src="js/tablesaw.js"></script>
 </body>
 </html>
