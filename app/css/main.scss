@@ -2,6 +2,12 @@ $nav-pills-link-active-bg: #DC3545;
 $link-color: #DC3545;
 $link-hover-color: #4F4F4F;
 @import "node_modules/bootstrap/scss/bootstrap";
+
+$fa-font-path:  "../fonts";
+@import "node_modules/@fortawesome/fontawesome-free/scss/fa-solid";
+@import "node_modules/@fortawesome/fontawesome-free/scss/fa-regular";
+@import "node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
+
 header .container {
   border-bottom: 2px solid #BD3C46;
 }
@@ -19,6 +25,9 @@ header {
 }
 table.exel{
   font-size: .8rem;
+}
+table.exel i {
+  font-size: 1.8rem;
 }
 table img{
   max-height: 50px;
