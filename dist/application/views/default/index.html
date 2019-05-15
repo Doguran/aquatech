@@ -164,17 +164,19 @@
         <div class="alert text-center bg-info text-white" role="alert">
             Прайс-лист "Portotecnica"
         </div>
+        <p class="w-100 text-center bg-info">категория</p>
     </div>
     <div class="container">
         <div class="table-responsive">
-        <table data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-mode-switch data-tablesaw-mode="swipe" class="table table-bordered table-sm exel tablesaw tablesaw-stack" data-tablesaw-mode = "stack">
+        <table data-tablesaw-no-labels data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-mode="stack" class="table table-bordered table-sm exel tablesaw tablesaw-row-zebra tablesaw-stack">
             <thead>
             <tr class="bg-warning">
                 <th rowspan="2" scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Арт.</th>
-                <th rowspan="2" scope="col">Наименование</th>
+                <th rowspan="2" scope="col" data-tablesaw-sortable-col>Наименование</th>
                 <th rowspan="2" scope="col">Описание</th>
                 <th rowspan="2" scope="col">Фото</th>
-                <th colspan="2" scope="col">Цена</th>
+                <th colspan="2" scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-numeric>Цена</th>
+                <th rowspan="2" scope="col">Корзина</th>
             </tr>
             <tr class="bg-warning">
                 <th scope="col">EVRO</th>
@@ -182,8 +184,9 @@
             </tr>
             </thead>
             <tbody>
+
             <tr>
-                <th scope="row">1</th>
+                <th scope="row" class="bg-light">1</th>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>
@@ -191,11 +194,12 @@
                     <img src="https://portotecnica.su/images/product/cat_aced89a724878eda.jpeg" class="img-fluid" alt="">
                     </a>
                 </td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>284 &euro;</td>
+                <td>284 ₽</td>
+                <td><a href="#">В корзину</a></td>
             </tr>
             <tr>
-                <th scope="row">2</th>
+                <th scope="row" class="bg-light">2</th>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>
@@ -203,11 +207,12 @@
                     <img src="https://portotecnica.su/images/product/cat_d55ac0fbecfa4f4e.jpeg" class="img-fluid" alt="">
                     </a>
                 </td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>1284 &euro;</td>
+                <td>1284 ₽</td>
+                <td><a href="#">В корзину</a></td>
             </tr>
             <tr>
-                <th scope="row">3</th>
+                <th scope="row" class="bg-light">3</th>
                 <td>Jacob</td>
                 <td>Thornton</td>
                 <td>
@@ -215,11 +220,12 @@
                         <img src="https://portotecnica.su/images/product/cat_dbb85f5cb961077e.jpeg" class="img-fluid" alt="">
                     </a>
                 </td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>484 &euro;</td>
+                <td>484 ₽</td>
+                <td><a href="#">В корзину</a></td>
             </tr>
             <tr>
-                <th scope="row">4</th>
+                <th scope="row" class="bg-light">4</th>
                 <td>Larry the Bird</td>
                 <td>@twitter</td>
                 <td>
@@ -227,8 +233,9 @@
                         <img src="https://portotecnica.su/images/product/cat_fe9f2fc629e3f0db.jpeg" class="img-fluid" alt="">
                     </a>
                 </td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+                <td>4 &euro;</td>
+                <td>4 ₽</td>
+                <td><a href="#">В корзину</a></td>
             </tr>
             </tbody>
         </table>
@@ -247,5 +254,21 @@
 <script src="js/main.js"></script>
 <script src="js/fancybox.js"></script>
 <script src="js/tablesaw.js"></script>
+<script>
+    TablesawConfig = {
+        i18n: {
+            modeStack: 'Stack',
+            modeSwipe: 'Swipe',
+            modeToggle: 'Toggle',
+            modeSwitchColumnsAbbreviated: 'Cols',
+            modeSwitchColumns: 'Columns',
+            columnToggleButton: 'Columns',
+            columnToggleError: 'No eligible columns.',
+            sort: 'Сортировка',
+            swipePreviousColumn: 'Previous column',
+            swipeNextColumn: 'Next column'
+        }
+    };
+</script>
 </body>
 </html>
