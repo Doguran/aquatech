@@ -4,8 +4,8 @@ $link-hover-color: #4F4F4F;
 @import "node_modules/bootstrap/scss/bootstrap";
 
 $fa-font-path:  "../fonts";
-@import "node_modules/@fortawesome/fontawesome-free/scss/fa-solid";
-@import "node_modules/@fortawesome/fontawesome-free/scss/fa-regular";
+@import "node_modules/@fortawesome/fontawesome-free/scss/solid";
+@import "node_modules/@fortawesome/fontawesome-free/scss/regular";
 @import "node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
 
 header .container {
@@ -18,9 +18,10 @@ header {
   margin-bottom: 3rem;
 }
 .table {
-  thead th {
+  thead th, td {
     vertical-align: middle;
-    text-align: center;
+    //text-align: center;
+
   }
 }
 table.exel{
