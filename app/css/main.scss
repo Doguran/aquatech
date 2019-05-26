@@ -1,6 +1,7 @@
 $nav-pills-link-active-bg: #DC3545;
 $link-color: #DC3545;
 $link-hover-color: #4F4F4F;
+$primary:      #fd7e14;
 @import "node_modules/bootstrap/scss/bootstrap";
 
 $fa-font-path:  "../fonts";
@@ -8,7 +9,7 @@ $fa-font-path:  "../fonts";
 @import "node_modules/@fortawesome/fontawesome-free/scss/regular";
 @import "node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
 
-header .container {
+header .container{
   border-bottom: 2px solid #BD3C46;
 }
 header p {
@@ -62,4 +63,26 @@ footer {
 .example {
   font-size: .9rem;
   color: #89929a;
+}
+.btn-primary {
+  color: #fff;
+}
+header{
+  background: #fff;
+  z-index:100;
+}
+.stickytop {
+  position:fixed;
+  top:0;
+  left:0;
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  background: #fff;
+  z-index:100;
+  margin: 0 !important;
+  padding: 1rem 0;
+  border-bottom: 1px solid #C5C5C5;
+
+
 }
