@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/fancybox.css">
     <link rel="stylesheet" href="css/tablesaw.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/main.css">
     <title>Hello, world!</title>
 </head>
@@ -41,121 +42,170 @@
 
 <main role="main">
 
-    <div class="container mt-5">
-        <div class="alert alert-dark" role="alert">
-            <form>
-                <div class="form-row">
-                    <div class="col-12 col-md-6 mb-3 mb-md-0 text-center text-md-left">
-                        <p class="mt-md-1 my-0">Курсы валют</p>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="form-row">
-                            <div class="col">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-usd">USD</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="USD" aria-describedby="inputGroup-usd">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-evro">EVRO</span>
-                                </div>
-                                <input type="text" class="form-control" aria-label="EVRO" aria-describedby="inputGroup-evro">
-                            </div>
-                            </div>
+
+    <div class="container cart-table">
+        <h4 class="featurette-heading my-5 text-center">Ваша корзина</h4>
+
+        <div class="row align-items-center text-center border-bottom" id="product_2017">
+            <div class="col-6 col-md-2"><a href='https://supermoika.ru/product/2017/pompa-vysokogo-davleniya-tor-bm-15-20-n.html'><img
+                    src='https://supermoika.ru/images/product/sm_02a457f6842d5568.jpeg'
+                    class="img-fluid"></a></div>
+            <div class="col-6 col-md-4"><a href='https://supermoika.ru/product/2017/pompa-vysokogo-davleniya-tor-bm-15-20-n.html'>Помпа высокого давления TOR BM 15.20 N</a></div>
+            <div class="col-4 col-md-2">
+                <div class="text-center">
+                    <input class="spinner" name="value" value="1" type="text" id="inp_2017">
+                </div>
+            </div>
+            <div class="col-4 col-md-2" id="price_2017">11650 р.</div>
+            <div class="col-4 col-md-2 delete_from_cart" id="del_2017"><i class="fas fa-trash-alt"></i></div>
+        </div>
+        <div class="row align-items-center text-center border-bottom" id="product_2015">
+            <div class="col-6 col-md-2"><a href='https://supermoika.ru/product/2015/pompa-vysokogo-davleniya-tor-bm-12-18-n.html'><img
+                    src='https://supermoika.ru/images/product/sm_806d1a289a76fca8.jpeg'
+                    class="img-fluid"></a></div>
+            <div class="col-6 col-md-4"><a href='https://supermoika.ru/product/2015/pompa-vysokogo-davleniya-tor-bm-12-18-n.html'>Помпа высокого давления TOR BM 12.18 N</a></div>
+            <div class="col-4 col-md-2">
+                <div class="text-center">
+                    <input class="spinner" name="value" value="1" type="text" id="inp_2015">
+                </div>
+            </div>
+            <div class="col-4 col-md-2" id="price_2015">11200 р.</div>
+            <div class="col-4 col-md-2 delete_from_cart" id="del_2015"><i class="fas fa-trash-alt"></i></div>
+        </div>
+        <div class="row align-items-center text-center border-bottom" id="product_2019">
+            <div class="col-6 col-md-2"><a href='https://supermoika.ru/product/2019/pompa-vysokogo-davleniya-tor-bm-15-25-n.html'><img
+                    src='https://supermoika.ru/images/product/sm_a911383f00b0305a.jpeg'
+                    class="img-fluid"></a></div>
+            <div class="col-6 col-md-4"><a href='https://supermoika.ru/product/2019/pompa-vysokogo-davleniya-tor-bm-15-25-n.html'>Помпа высокого давления TOR BM 15.25 N</a></div>
+            <div class="col-4 col-md-2">
+                <div class="text-center">
+                    <input class="spinner" name="value" value="1" type="text" id="inp_2019">
+                </div>
+            </div>
+            <div class="col-4 col-md-2" id="price_2019">12440 р.</div>
+            <div class="col-4 col-md-2 delete_from_cart" id="del_2019"><i class="fas fa-trash-alt"></i></div>
+        </div>
+
+        <div class="row align-items-center text-center lead py-5">
+
+            <div class="col-4 offset-md-6 col-md-2">Итого к оплате:</div>
+            <div class="col-5 col-md-2" id="itog_price">35290 р.</div>
+
+        </div>
+    </div>
+
+
+
+    <div class="container-fluid order-form">
+        <div class="container">
+            <h4 class="featurette-heading mb-5 text-center">Оформление доставки</h4>
+            <div class="mb-3 mb-lg-5 text-center"><a href="#" class="pseudo-link auth_modal">Уже покупали у нас?</a></div>
+            <form id="zakazform" method="post" action="">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mt-3 mb-lg-3 mt-lg-0">
+
+                            <input class="form-control form-control-lg" id="inputName" name="name" placeholder="Имя*" type="text" value="">
                         </div>
                     </div>
+                    <div class="col-lg-6 example">
+                        Пример: Иванов Сергей Александрович
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mt-3 mb-lg-3 mt-lg-0">
+
+                            <input class="form-control form-control-lg" id="inputEmail" name="email" placeholder="Email*" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 example">
+                        Пример: test@mail.ru
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mt-3 mb-lg-3 mt-lg-0">
+
+                            <input class="form-control form-control-lg" id="inputTel" name="phone" placeholder="Телефон" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 example">
+                        Пример: 8 937 999 99 99
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mt-3 mb-lg-3 mt-lg-0">
+                            <input type="text" name="url" id="zakaz-urlform" class="concealed" value=""/>
+                            <input class="form-control form-control-lg" id="inputAddress" name="address" placeholder="Адрес доставки" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 example">
+                        Пример: г. Москва, пр. Мира, ул. Петра Великого д.19, кв 51.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mt-3 mb-lg-3 mt-lg-0">
+
+                            <textarea class="form-control form-control-lg" id="inputText" name="note" rows="3" placeholder="Сообщение"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 example">
+                        Пример: Позвоните, пожалуйста, после 10 вечера, до этого времени я на работе
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col col-lg-6">
+                        <div class="row">
+                            <div class="col-md-6">Выберите способ доставки:*</div>
+                            <div class="col-md-6">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="courier" name="delivery" value="courier" class="custom-control-input">
+                                    <label class="custom-control-label" for="courier">Курьером, 500 руб.</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="self" name="delivery" value="self" class="custom-control-input">
+                                    <label class="custom-control-label" for="self">Самовывоз, бесплатно </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">Выберите способ оплаты:*</div>
+                            <div class="col-md-6">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" name="payment" value="cash" id="cash" class="custom-control-input">
+                                    <label class="custom-control-label" for="cash">Наличными курьеру</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" name="payment" value="bank" id="bank" class="custom-control-input">
+                                    <label class="custom-control-label" for="bank">Банковский перевод </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-4 mb-5">
+                        <p id="p-contact-error" class="mb-0 text-danger">При отправке формы обнаружены следующие ошибки:</p>
+                        <div id="contact-error"></div>
+                        <button type="submit" id="send" class="btn btn-primary my-2">Оформить заказ</button>
+                        <img src="https://supermoika.ru/application/views/default/img/loader.gif" id="ajax-loader-zakaz" class="subform"/>
+                    </div>
+                    <div class="col-md-8">
+                        Нажимая на кнопку, вы даете согласие на обработку своих персональных данных.
+                    </div>
+
                 </div>
             </form>
-        </div>
-    </div>
 
 
 
-
-    <div class="container">
-        <div class="alert text-center bg-info text-white" role="alert">
-            Корзина
         </div>
 
-    </div>
-    <div class="container">
-        <div class="table-responsive">
-        <table data-tablesaw-no-labels data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-mode="stack" class="table table-bordered table-sm exel tablesaw tablesaw-row-zebra tablesaw-stack">
-            <thead>
-            <tr class="bg-warning">
-                <th rowspan="2" scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Наименование</th>
-                <th rowspan="2" scope="col" data-tablesaw-sortable-col>Арт</th>
-                <th rowspan="2" scope="col">Описание</th>
-                <th rowspan="2" scope="col">Фото</th>
-                <th colspan="2" scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-numeric>Цена</th>
-                <th rowspan="2" scope="col"></th>
-            </tr>
-            <tr class="bg-warning">
-                <th scope="col">EVRO</th>
-                <th scope="col">РУБ.</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr>
-                <th scope="row" class="bg-light">G 134-C I 1207A-M (6м шланг)</th>
-                <td>IDAF 94294</td>
-                <td>120бар, 380л/ч, 1600Вт, 220В, 2800об, 17кг</td>
-                <td>
-                    <a data-fancybox="gallery1" href="https://portotecnica.su/images/product/cat_aced89a724878eda.jpeg">
-                    <img src="https://portotecnica.su/images/product/cat_aced89a724878eda.jpeg" class="img-fluid" alt="">
-                    </a>
-                </td>
-                <td class="text-nowrap">14 &euro;</td>
-                <td class="text-nowrap">284 р.</td>
-                <td class="text-nowrap text-md-center"><a href="#"><i class="fas fa-shopping-cart"></i></a></td>
-            </tr>
-            <tr>
-                <th scope="row" class="bg-light">UNIVERSE DS 2640 T 4</th>
-                <td>IDAC 44018</td>
-                <td>30-180бар, 390-780л/ч, 120-65гр, 5300Вт, 380В, 2800об, 95кг</td>
-                <td>
-                    <a data-fancybox="gallery2" href="https://portotecnica.su/images/product/cat_d55ac0fbecfa4f4e.jpeg">
-                    <img src="https://portotecnica.su/images/product/cat_d55ac0fbecfa4f4e.jpeg" class="img-fluid" alt="">
-                    </a>
-                </td>
-                <td class="text-nowrap">2 086,80 &euro;</td>
-                <td class="text-nowrap">156 447,40 р.</td>
-                <td class="text-nowrap text-md-center"><a href="#"><i class="fas fa-shopping-cart"></i></a></td>
-            </tr>
-            <tr>
-                <th scope="row" class="bg-light">3</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>
-                    <a data-fancybox="gallery3" href="https://portotecnica.su/images/product/cat_dbb85f5cb961077e.jpeg">
-                        <img src="https://portotecnica.su/images/product/cat_dbb85f5cb961077e.jpeg" class="img-fluid" alt="">
-                    </a>
-                </td>
-                <td class="text-nowrap">45 &euro;</td>
-                <td class="text-nowrap">484 р.</td>
-                <td class="text-nowrap text-md-center"><a href="#"><i class="fas fa-shopping-cart"></i></a></td>
-            </tr>
-            <tr>
-                <th scope="row" class="bg-light">4</th>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-                <td>
-                    <a data-fancybox="gallery4" href="https://portotecnica.su/images/product/cat_fe9f2fc629e3f0db.jpeg">
-                        <img src="https://portotecnica.su/images/product/cat_fe9f2fc629e3f0db.jpeg" class="img-fluid" alt="">
-                    </a>
-                </td>
-                <td class="text-nowrap">5 &euro;</td>
-                <td class="text-nowrap">4 р.</td>
-                <td class="text-nowrap text-md-center"><a href="#"><i class="fas fa-shopping-cart"></i></a></td>
-            </tr>
-            </tbody>
-        </table>
-        </div>
     </div>
 
 </main>
@@ -171,6 +221,7 @@
 <script src="js/main.js"></script>
 <script src="js/fancybox.js"></script>
 <script src="js/tablesaw.js"></script>
+<script src="js/jquery-ui.js"></script>
 <script>
     TablesawConfig = {
         i18n: {
@@ -186,6 +237,79 @@
             swipeNextColumn: 'Next column'
         }
     };
+</script>
+<script>
+    $( function() {
+        $( ".spinner" ).spinner({
+            min: 1
+        });
+
+        $(".spinner").on("keyup spin", pereschet);
+
+        function pereschet(){
+            if(request){
+                window.self = this
+                request = 0;
+                setTimeout(pereschet2, 1000);
+            }else{
+                return false;
+            }
+        }
+        var request = 1;
+        function pereschet2(){
+            request = 1;
+
+            $.ajax({
+                url: "/cart/edit/",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id: $(self).attr("id"),
+                    quantity: $(self).val()
+                },
+                success: function(data){
+                    if(data["success"]){
+
+                        $('#price_'+data["id"]).html(data["sum"]+" р.");
+                        $('#itog_quantity').html(data["quantityAll"]+" шт.");
+                        $('#itog_price').html(data["priceAll"]+" руб.");
+                        $('.cart-counter').text(data["quantityAll"]);
+
+                    }
+
+                }
+            });
+        }
+
+        $('.delete_from_cart').click(function() {
+
+            $.ajax({
+                url: "/cart/delete/",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id: $(this).attr('id'),
+                },
+                success: function(data){
+                    if(data["success"]){
+
+                        if(data["quantityAll"]==0){
+                            location.href='/'
+                        }else{
+                            $('#product_'+data["id"]).hide();
+                            $('#itog_quantity').html(data["quantityAll"]+" шт.");
+                            $('#itog_price').html(data["priceAll"]+" руб.");
+                            $('.cart-counter').text(data["quantityAll"]);
+                        }
+                    }
+                }
+            });
+            return false;
+        });
+
+
+
+    } );
 </script>
 </body>
 </html>

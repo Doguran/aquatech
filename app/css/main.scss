@@ -43,3 +43,23 @@ footer {
   background: #474747;
   color: #A4A1A1;
 }
+.spinner {
+  width: 20px;
+}
+.cart-table .row div {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#p-contact-error, .admin-link-table, .slideparamUp, #ajax-loader, #ajax-loader-auth, .ajax-loader-auth, #ajax-loader-ask, #ajax-loader-zakaz, #ajax-loader-EditPass, .slidemenuUp, .concealed, .error, .odinakovoe {
+  display: none;
+}
+.order-form{
+  background: #F6F6F6;
+  border-top: 1px solid #ccc;
+  padding: 3.4375rem 0;
+  margin-bottom: -5rem;
+}
+.example {
+  font-size: .9rem;
+  color: #89929a;
+}
