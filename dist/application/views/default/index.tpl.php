@@ -3,56 +3,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/fancybox.css">
-    <link rel="stylesheet" href="css/tablesaw.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="<?php echo TEMPLATE_PATH ?>css/fancybox.css">
+    <link rel="stylesheet" href="<?php echo TEMPLATE_PATH ?>css/tablesaw.css">
+    <link rel="stylesheet" href="<?php echo TEMPLATE_PATH ?>css/main.css">
     <title>Hello, world!</title>
 </head>
 <body>
-<header>
-
-
-    <div class="container">
-        <div class="row my-3">
-            <div class="col-md-3 d-flex justify-content-center justify-content-md-start">
-                <img src="http://i.imgur.com/WxI5l5D.jpg"  height="100" alt="">
-            </div>
-            <div class="col-md-6">
-                <ul class="nav justify-content-md-end justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Active</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-3 my-1 text-center">
-                <p>
-                    <span class="lead">8 800 707 08 37</span><br>
-                aquatehnica@mail.ru</p>
-                <a href="#" class="btn btn-primary" role="button">корзина (0)</a>
-            </div>
-        </div>
-    </div>
-
-</header>
-
+<?php include("blocks/header.tpl.php"); ?>
 <main role="main">
     <div class="container">
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="/application/views/default/img/slider1.jpg" class="d-block mx-auto img-fluid" alt="...">
+                    <img src="<?php echo TEMPLATE_PATH ?>img/slider1.jpg" class="d-block mx-auto img-fluid" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="/application/views/default/img/slider2.jpg" class="d-block mx-auto img-fluid" alt="...">
+                    <img src="<?php echo TEMPLATE_PATH ?>img/slider2.jpg" class="d-block mx-auto img-fluid" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="/application/views/default/img/slider3.jpg" class="d-block mx-auto img-fluid" alt="...">
+                    <img src="<?php echo TEMPLATE_PATH ?>img/slider3.jpg" class="d-block mx-auto img-fluid" alt="...">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -307,18 +276,10 @@
 
     </div>
 </main>
-<footer>
-    <div class="container">
-        <p class="float-right">
-            <a href="#">Back to top</a>
-        </p>
-        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-</footer>
-<script src="js/main.js"></script>
-<script src="js/fancybox.js"></script>
-<script src="js/tablesaw.js"></script>
+<?php include("blocks/footer.tpl.php"); ?>
+<script src="<?php echo TEMPLATE_PATH ?>js/main.js"></script>
+<script src="<?php echo TEMPLATE_PATH ?>js/fancybox.js"></script>
+<script src="<?php echo TEMPLATE_PATH ?>js/tablesaw.js"></script>
 <script>
     TablesawConfig = {
         i18n: {
