@@ -1,0 +1,82 @@
+<?php
+class CategoryController implements IController {
+
+    protected $_output;
+
+	public function indexAction() {
+		throw new Exception("Нет запроса");
+	}
+
+    private function _drawTable($cat_id, $cat_name){
+
+        $ProductObj = new ProductArrModel();
+        //достаем товары
+        $ProductArr = $ProductObj->getProduct($cat_id);
+
+        if($ProductArr){
+            //рисуем таблицу
+            $model = new FileModel();
+            $model->cat_name = $cat_name;
+            $model->contentArr = $ProductArr;
+            $model->cat_id = $cat_id;
+            $this->_output .= $model->render(TABLE_PRODUCT);
+        }
+
+
+
+        //достаем субкатегории
+        $SubCatArr = $ProductObj->getSubCat($cat_id);
+        if ($SubCatArr) {
+
+            foreach($SubCatArr as $val){
+                $this->_drawTable($val["id"],$val["name"]);
+            }
+        }
+
+
+
+    }
+    
+
+    
+    public function showAction() {
+        $fc = FrontController::getInstance();
+        $params = $fc->getParams();
+        
+        if(isset($params["id"])){
+            
+        $cat_id = abs((int)$params["id"]);
+
+
+
+
+        //рисуем название главной категории
+            $CatModel = new CatModel();
+            $cat_name = $CatModel->getCatName($cat_id);
+
+
+
+
+        //достаем товары этой категории - главной категории и присоединяем
+            $this->_drawTable($cat_id, $cat_name["name"]);
+
+
+        $model = new FileModel();
+        //выводим все
+        $model->categories = $CatModel->getCatListForCatPage($cat_id);
+        $model->table = $this->_output;
+        $model->cat_id = $cat_id;
+        $model->cat_name = $cat_name["name"];
+        $output = $model->render(CAT_PAGE);
+        $fc->setBody($output);
+            
+        }else{
+            throw new Exception("Нет параметров");
+        }
+        
+		
+        
+	}
+    
+    
+}

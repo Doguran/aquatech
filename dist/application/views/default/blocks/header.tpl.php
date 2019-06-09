@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="col d-flex justify-content-center py-2">
-                        <div class="align-self-center  px-2"><a href="#" class="btn btn-primary" role="button">корзина (0)</a></div>
+                        <div class="align-self-center  px-2"><a href="#" class="btn btn-primary" role="button">корзина (<?php echo QUANTITY; ?>)</a></div>
                     </div>
                 </div>
 

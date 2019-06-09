@@ -6,15 +6,14 @@ class IndexController implements IController {
         
 		$model = new FileModel();
 
+        $catModel = new CatModel();
+        $model->categories = $catModel->getCatListForIndex();
+        //echo $catModel->getIndexCatId();
+
 		
         //выводим все
 		$output = $model->render(DEFAULT_FILE);
 		
 		$fc->setBody($output);
 	}
-    
-    
-    
-
-
 }
