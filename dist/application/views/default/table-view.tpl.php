@@ -29,9 +29,41 @@
                         <img src="<?php echo HTTP_PATH ?>images/product/<?php echo $val["thumb_img"] ?>" class="img-fluid" alt="<?php echo $val["name"] ?>">
                     </a>
                 </td>
-                <td class="text-nowrap"><?php echo $val["price"] ?> &euro;</td>
-                <td class="text-nowrap"><?php echo $val["price"] ?> р.</td>
-                <td class="text-nowrap text-md-center"><a href="#"><i class="fas fa-shopping-cart"></i></a></td>
+
+                <?php if ($val["price"] == "0"
+                          || $val["price"] == "") : ?>
+                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap text-md-center">
+                        <a class="btn btn-light askprice  text-secondary" id="ask_<?php echo $val["id"] ?>"
+                           href="javascript:void(0)"><i class="fas fa-question-circle"></i></a>
+                    </td>
+
+                <?php else : ?>
+                    <td class="text-nowrap"><?php echo $val["price"] ?> &euro;</td>
+                    <td class="text-nowrap"><?php echo $val["price"] ?> р.</td>
+                    <td class="text-nowrap text-md-center">
+
+                        <?php if (!CartController::findtoCart($val["id"])) : //если товар не в корзине ?>
+                            <a title="Добавить в корзину" class="text-success"
+                               id="addcart-btn<?php echo $val["id"] ?>"
+                               onclick="addToCard(<?php echo $val["id"] ?>,<?php echo $val["price"] ?>)"
+                               href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a>
+                            <div class="text-info concealed" title="Товар уже в корзине"
+                                 onclick="location.href='/cart/'"
+                                 id="incart-btn<?php echo $val["id"] ?>">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        <?php else : //если товар уже в корзине ?>
+                            <a class="text-info" title="Товар уже в корзине"
+                               id="incart-btn<?php echo $val["id"] ?>"
+                               href="/cart/"><i class="fas fa-check-circle"></i></a>
+                        <?php endif; ?>
+                    </td>
+                <?php endif ?>
+
+
+
             </tr>
             <?php endforeach; ?>
 

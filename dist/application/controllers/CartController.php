@@ -480,6 +480,14 @@ class CartController implements IController {
 	   
 		
     }
+
+    public function modalAction() {
+
+        $model = new FileModel();
+        echo $model->render("cart-modal.tpl.php");
+
+
+    }
     
     
     

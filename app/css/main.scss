@@ -9,6 +9,11 @@ $fa-font-path:  "../fonts";
 @import "node_modules/@fortawesome/fontawesome-free/scss/regular";
 @import "node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
 
+.btn-outline-primary:hover, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
+  color: #fff;
+}
+
+
 header .container{
   border-bottom: 2px solid #BD3C46;
 }
@@ -51,7 +56,21 @@ footer {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#p-contact-error, .admin-link-table, .slideparamUp, #ajax-loader, #ajax-loader-auth, .ajax-loader-auth, #ajax-loader-ask, #ajax-loader-zakaz, #ajax-loader-EditPass, .slidemenuUp, .concealed, .error, .odinakovoe {
+#p-contact-error,
+.admin-link-table,
+.slideparamUp,
+#ajax-loader,
+#ajax-loader-auth,
+.ajax-loader-auth,
+#ajax-loader-ask,
+#ajax-loader-zakaz,
+#ajax-loader-EditPass,
+.slidemenuUp,
+.concealed,
+.error,
+.odinakovoe,
+.error-message-modal,
+.success-message-modal {
   display: none;
 }
 .order-form{

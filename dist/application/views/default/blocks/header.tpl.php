@@ -14,9 +14,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
+
+                    <?php if (isset($_SESSION["user"])) : ?>
+                        <li class="nav-item"><a href="/cabinet/"
+                                                class="nav-link"
+                                                title="Личный кабинет">Кабинет
+                            </a></li>
+                        <li class="nav-item"><a
+                                    href="/auth/logout/?url=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"
+                                    class="nav-link" title="Выход">Выход</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item"><a title="Вход" href="#"
+                                                class="nav-link"
+                                                id="auth_modal">Вход</a>
+                        </li>
+                    <?php endif ?>
+
                 </ul>
             </div>
             <div class="col-md-3 my-1 text-center mobil">
@@ -28,7 +42,7 @@
                         </div>
                     </div>
                     <div class="col d-flex justify-content-center py-2">
-                        <div class="align-self-center  px-2"><a href="#" class="btn btn-primary" role="button">корзина (<?php echo QUANTITY; ?>)</a></div>
+                        <div class="align-self-center  px-2"><a href="#" class="btn btn-primary" role="button">корзина (<span class="cart-counter"><?php echo QUANTITY; ?></span>)</a></div>
                     </div>
                 </div>
 
