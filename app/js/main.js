@@ -5,6 +5,12 @@
 //= auth-modal.js
 //= add-to-cart.js
 
+//Прелоадерg
+$(window).on('load', function () {
+    $('.ploader').delay(0).fadeOut('slow');
+});
+///////
+
 
     $(window).scroll(function() {
         if($(this).scrollTop() >= 290) {

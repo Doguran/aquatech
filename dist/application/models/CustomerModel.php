@@ -124,7 +124,7 @@ class CustomerModel{
             
             $sql = "SELECT shopping.product_id as product_id,
                     		shopping.product_name as product_name,
-                            shopping.product_url as product_url,
+                            /*shopping.product_url as product_url,*/
                     		shopping.product_sku as product_sku,
                     		shopping.quantity as quantity,
                     		shopping.price as price,
