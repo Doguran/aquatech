@@ -4,6 +4,7 @@ class CatModel{
     protected $_db;
     protected $_catArray;
     protected $_menu = '';
+    public $indexCatId;
 
 
     public function __construct(){
@@ -17,6 +18,7 @@ class CatModel{
         foreach ($this->_getCatList() as $key=>$val){
             $this->_menu .= "<li class='nav-item'>\n";
             if($key == 0){
+                $this->indexCatId = $val["id"];
                 $this->_menu .= "<span class='nav-link active'>$val[name]</span><span class='sr-only'>(current)</span>\n";
             }else{
                 $this->_menu .= "<a class='nav-link' href='http://$_SERVER[HTTP_HOST]/category/show/id/$val[id]/'>$val[name]</a>\n";

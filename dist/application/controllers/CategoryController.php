@@ -36,7 +36,13 @@ class CategoryController implements IController {
 
 
     }
-    
+
+    public function showIndex($cat_id){
+        $CatModel = new CatModel();
+        $cat_name = $CatModel->getCatName($cat_id);
+        $this->_drawTable($cat_id, $cat_name["name"]);
+        return $this->_output;
+    }
 
     
     public function showAction() {

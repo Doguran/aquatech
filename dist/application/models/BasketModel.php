@@ -20,7 +20,7 @@ class BasketModel{
         }
         $wherein = implode(",", $where);
         
-        $sql = "SELECT id,name,price,thumb_img,sku,url
+        $sql = "SELECT id,name,price,thumb_img,sku
                 FROM product
                 WHERE id IN (".$wherein.")
                 ORDER BY FIELD(id,".$wherein.")";
@@ -32,7 +32,6 @@ class BasketModel{
             
             $cartarray[] = array(
                 'id' => $row["id"],
-                'url' => $row["url"],
                 'name' => $row["name"],
                 'price' => $row["price"],
                 'sku' => $row["sku"],
@@ -78,13 +77,13 @@ class BasketModel{
             
             $price = $this->_db->quote($val["price"]);
             $quantity = $this->_db->quote($val["quantity"]);
-            $product_url = $this->_db->quote($val["url"]);
+            //$product_url = $this->_db->quote($val["url"]);
             $product_id = $this->_db->quote($val["id"]);
             $name = $this->_db->quote($val["name"]);
             $sku = $this->_db->quote($val["sku"]);
             
-            $sql = "INSERT INTO shopping (order_id,product_id,quantity,price,product_name,product_sku,product_url)
-                VALUES ($order_id,$product_id,$quantity,$price,$name,$sku,$product_url)";
+            $sql = "INSERT INTO shopping (order_id,product_id,quantity,price,product_name,product_sku)
+                VALUES ($order_id,$product_id,$quantity,$price,$name,$sku)";
             $result = $this->_db->exec($sql); 
             
         }

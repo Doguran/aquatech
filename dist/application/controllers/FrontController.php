@@ -100,6 +100,7 @@ class FrontController {
 	public function setProductId($product_id) {
 		$this->_product_id = $product_id;
 	}
+
     
 
     

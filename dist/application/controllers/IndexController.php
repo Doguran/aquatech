@@ -3,13 +3,14 @@ class IndexController implements IController {
 	public function indexAction() {
 	   
         $fc = FrontController::getInstance();
-        
-		$model = new FileModel();
 
+        $CategoryController = new CategoryController();
         $catModel = new CatModel();
-        $model->categories = $catModel->getCatListForIndex();
-        //echo $catModel->getIndexCatId();
 
+
+        $model = new FileModel();
+        $model->categories = $catModel->getCatListForIndex();
+        $model->table = $CategoryController->showIndex($catModel->indexCatId);
 		
         //выводим все
 		$output = $model->render(DEFAULT_FILE);

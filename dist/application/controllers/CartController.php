@@ -102,16 +102,21 @@ class CartController implements IController {
     
     
     static public function countCart(){
+
+        //Helper::print_arr($_SESSION["cart"]); exit;
+
+
         
         $quantityAll = 0;
         $priceAll = 0;
         
         foreach($_SESSION["cart"] as $val){
-            
+
+
             if($val["price"] == 0 || $val["price"] == "" || $val["quantity"] == 0) continue;
             $quantityAll += $val["quantity"];
             $priceAll += $val["quantity"]*$val["price"];
-            
+
         }
         
                 
@@ -277,15 +282,15 @@ class CartController implements IController {
                         $table .= "<tr>
                     				<td>
                     					
-                    					<a href='".HTTP_PATH."product/$val[id]/$val[url].html'>$val[name]</a>
+                    					$val[name]
                     				</td>
                                     <td align='center'>$val[price] руб.</td>
                     				<td align='center'>$val[quantity]</td>
                     				<td align='center'>$val[priceAll] руб</td>
                     				
                     			  </tr>\n";
-                        $textVersion .= "$val[name] - $val[price] руб. X $val[quantity] шт. = $val[priceAll] руб.\n".
-                                        HTTP_PATH."product/$val[id]/$val[url].html\n-------------------------------\n";
+                        $textVersion .= "$val[name] - $val[price] руб. X $val[quantity] шт. = $val[priceAll] руб.\n-------------------------------\n";
+
                         
                     }
 
@@ -359,7 +364,6 @@ class CartController implements IController {
                     $hdrs = $mime->headers($hdrs);
 
                     $mail =& Mail::factory('smtp', array('host' => SMTP_HOST, 'debug' => false, 'pipelining' => false, 'port' => SMTP_PORT, 'auth' => true, 'username' => SMTP_USERNAME, 'password' => SMTP_PASSWORD));
-                    //$mail =& Mail::factory('mail');
                     $mail->send($email, $hdrs, $body);
                     
 
@@ -426,7 +430,6 @@ class CartController implements IController {
                     $hdrs_admin = $mime_admin->headers($hdrs_admin);
 
                     $mail =& Mail::factory('smtp', array('host' => SMTP_HOST, 'debug' => false, 'pipelining' => false, 'port' => SMTP_PORT, 'auth' => true, 'username' => SMTP_USERNAME, 'password' => SMTP_PASSWORD));
-                    //$mail =& Mail::factory('mail');
                     $admin_email = Helper::getAdminMail();
                     $mail->send($admin_email, $hdrs_admin, $body);
 

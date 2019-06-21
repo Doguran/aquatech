@@ -109,14 +109,14 @@ try{
 }catch (Exception $e) {
     
    //в продакшен этот абзац закоментить, а следующий раскоментить
-//    header("HTTP/1.0 404 Not Found");
-//    header("Content-Type: text/html; charset=utf-8");
-//    echo 'Выброшено исключение: ',  $e->getMessage(),"\n";
+    header("HTTP/1.0 404 Not Found");
+    header("Content-Type: text/html; charset=utf-8");
+    echo 'Выброшено исключение: ',  $e->getMessage(),"\n";
     
-    $rc = new ReflectionClass("Error404Controller");
-	$controller = $rc->newInstance();
-	$method = $rc->getMethod("indexAction");
-	$method->invoke($controller);
+//    $rc = new ReflectionClass("Error404Controller");
+//	$controller = $rc->newInstance();
+//	$method = $rc->getMethod("indexAction");
+//	$method->invoke($controller);
 	
 }
 
