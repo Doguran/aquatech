@@ -32,7 +32,7 @@ $fa-font-path:  "../fonts";
   -webkit-animation: rotation 1s linear infinite;
   animation: rotation 1s linear infinite;
 
-  border: solid 8px #ff485e;
+  border: solid 8px #fd7e14;
   border-left-color: transparent;
   border-radius: 50%;
 }
@@ -87,7 +87,7 @@ input, textarea {outline: none;}
   background: #FD7E14;
 }
 
-header .container{
+header .container:first-child{
   border-bottom: 2px solid #BD3C46;
 }
 header p {

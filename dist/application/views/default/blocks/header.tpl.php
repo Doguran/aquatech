@@ -51,5 +51,18 @@
             </div>
         </div>
     </div>
-
+    <?php if(ADMIN) : ?>
+    <div class="container">
+        <nav class="nav">
+            <a class="nav-link" href="/adminorders/">Заказы</a>
+            <a class="nav-link" href="/admindetail/add/">Добавить товар</a>
+            <a class="nav-link" href="/adminarticle/add/">Добавить статью</a>
+            <a class="nav-link" href="/admincat/">Категории</a>
+            <a class="nav-link" href="/valute/">Валюта</a>
+            <a class="nav-link" href="/kp/">КП(<span id="kp-count">0</span>)</a>
+        </nav>
+    </div>
+    <?php endif; ?>
 </header>
+
+

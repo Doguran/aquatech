@@ -40,9 +40,17 @@ class AuthController implements IController {
     
     
     public function modalAction() {
-        
-      $model = new FileModel();
-      echo $model->render("auth.tpl.php");
+
+        // Если  запрос не AJAX (XMLHttpRequest), то завершить работу
+        if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
+            exit();
+        }
+
+        ob_start();
+        include('auth.tpl.php');
+        $output['body'] = ob_get_clean();
+
+        echo json_encode($output);
       
       		
 	}
@@ -83,9 +91,13 @@ class AuthController implements IController {
             }
             
           }else{
-            
-            $model = new FileModel();
-            echo $model->render("editpass.tpl.php");
+
+
+              ob_start();
+              include('editpass.tpl.php');
+              $output['body'] = ob_get_clean();
+
+              echo json_encode($output);
             
           }
       

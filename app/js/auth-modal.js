@@ -8,9 +8,9 @@ $(document).ready(function() {
     $('#auth_modal, .auth_modal').click(function(e){
         e.preventDefault();
         $.get('/auth/modal/', function(data) {
-            //var data = JSON.parse(data);
+            var data = JSON.parse(data);
             myModal.changeFooter('');
-            myModal.changeBody(data);
+            myModal.changeBody(data['body']);
             myModal.showModal();
         });
     });
@@ -43,11 +43,13 @@ $(document).ready(function() {
                         dataType: 'json',
                         beforeSend: function () {
 
-                            $('#auth_submit').val("Ждите..");
+                            $('#auth_submit').hide();
+                            $('#ajax-loader').show()
 
                         },
                         complete: function () {
-                            $('#auth_submit').val("Вход");
+                            $('#auth_submit').show();
+                            $('#ajax-loader').hide()
                         },
                         success: function (data) {
                             if (data["success"]) {
