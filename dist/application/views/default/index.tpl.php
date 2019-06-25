@@ -73,7 +73,11 @@
 
     </div>
 
-
+    <div class="container">
+        <div class="alert text-center bg-info text-white" role="alert">
+            <?php echo $this->cat_name["name"] ?>
+        </div>
+    </div>
 
 
     <?php echo $this->table; ?>

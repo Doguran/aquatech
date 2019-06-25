@@ -7,6 +7,39 @@ class CategoryController implements IController {
 		throw new Exception("Нет запроса");
 	}
 
+    public function viewmenuAction() {
+
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+
+            $fc = FrontController::getInstance();
+            $params = $fc->getParams();
+            $model = new FileModel();
+
+            if(isset($params["id"])){
+
+
+                $cat_id = abs((int)$params["id"]);
+                $fc->setCatId($cat_id);
+                $catModel = new CatModel();
+                $catModel->getBreadCrumbs($cat_id);
+
+
+
+            }else{
+                $catModel = new CatModel();
+            }
+
+
+            $model->categories = $catModel->getCategories();
+            $output = $model->render('blocks/catmenu.tpl.php');
+            $fc->setBody($output);
+
+
+        }else{
+            throw new Exception("Нет запроса");
+        }
+    }
+
     private function _drawTable($cat_id, $cat_name){
 
         $ProductObj = new ProductArrModel();

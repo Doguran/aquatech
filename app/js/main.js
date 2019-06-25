@@ -11,6 +11,12 @@ $(window).on('load', function () {
 });
 ///////
 
+$(document).ready(function(){
+    $('.but_title, .but_title_do').click(function() {
+        $(this).next('menu').slideToggle();
+    });
+});
+
 
     $(window).scroll(function() {
         if($(this).scrollTop() >= 290) {

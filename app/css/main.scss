@@ -178,3 +178,57 @@ header{
 
 
 }
+.pseudo-link {
+  border-bottom-color: -moz-use-text-color;
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
+  cursor: pointer;
+  color: $link-color;
+}
+a.pseudo-link:hover{
+  text-decoration: none;
+}
+
+.slidemenuUp {
+  display: none;
+}
+.but_title, .but_title_do, .fa-cart-plus, .fa-check-circle {
+  cursor:pointer;
+}
+.but_title:hover, .but_title_do:hover {
+  color:#05070A;
+
+}
+.nav-catalog a {
+  color: #000;
+}
+.nav-catalog a:hover {
+  text-decoration: none;
+  color: $link-color;
+}
+
+.nav-catalog ul {
+  list-style-type: none;
+}
+.nav-catalog, .nav-catalog>ul {
+  padding-left: 0;
+  margin-bottom: 30px;
+}
+.nav-catalog>ul ul{
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+.nav-catalog>ul>li>a {
+  font-weight: bold;
+}
+.but_title, .but_title_do {
+  font-family: "Open Sans",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.1;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+}

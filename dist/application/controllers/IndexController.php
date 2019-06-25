@@ -11,6 +11,7 @@ class IndexController implements IController {
         $model = new FileModel();
         $model->categories = $catModel->getCatListForIndex();
         $model->table = $CategoryController->showIndex($catModel->indexCatId);
+        $model->cat_name = $catModel->getCatName($catModel->indexCatId);
 		
         //выводим все
 		$output = $model->render(DEFAULT_FILE);
