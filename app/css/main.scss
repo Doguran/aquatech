@@ -1,7 +1,8 @@
 $nav-pills-link-active-bg: #DC3545;
 $link-color: #DC3545;
 $link-hover-color: #4F4F4F;
-$primary:      #fd7e14;
+$primary:    #47BE2E;  /*#fd7e14;*/
+$info:    #4C9ED9;
 @import "node_modules/bootstrap/scss/bootstrap";
 
 $fa-font-path:  "../fonts";
@@ -130,7 +131,6 @@ footer {
   padding-bottom: 10px;
 }
 #p-contact-error,
-.admin-link-table,
 .slideparamUp,
 #ajax-loader,
 #ajax-loader-auth,
@@ -145,6 +145,26 @@ footer {
 .error-message-modal,
 .success-message-modal {
   display: none;
+}
+.admin-link-table{
+  visibility: hidden;
+}
+table.exel tr:hover .admin-link-table{
+  visibility: visible;
+}
+table.exel .admin-link-table i {
+  margin-right: 25px;
+  font-size: 1.2rem;
+
+}
+table.exel div {
+  margin-top: 5px;
+}
+table.exel a:hover{
+  text-decoration: none;
+}
+table.exel a.edit{
+  color: green;
 }
 .order-form{
   background: #F6F6F6;
@@ -231,4 +251,7 @@ a.pseudo-link:hover{
   box-sizing: border-box;
   cursor: pointer;
   display: block;
+}
+.mainCat {
+  background: #ddd;
 }

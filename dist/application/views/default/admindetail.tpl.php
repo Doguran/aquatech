@@ -9,7 +9,6 @@
     <link href="<?php echo TEMPLATE_PATH ?>css/main.css" rel="stylesheet">
 
     <script src="<?php echo TEMPLATE_PATH ?>js/main.js"></script>
-    <script type="text/javascript" src="<?php echo HTTP_PATH ?>ckeditor/ckeditor.js"></script>
     <script>
         $( function() {
             var product = {
@@ -18,12 +17,10 @@
                     $('.btn-add').click(function (e) {
                         e.preventDefault();
                         if (product.validate()) {
-                            CKEDITOR.instances.editor1.updateElement();
-                            CKEDITOR.instances.editor2.updateElement();
                             var form = document.getElementById("addform");
                             var data = new FormData(form);
                             $.ajax({
-                                url: '/admindetail/insert/',
+                                url: '/admindetail/<?php echo $this->action; ?>/',
                                 data: data,
                                 type: 'post',
                                 cache: false,
@@ -32,17 +29,16 @@
                                 async: true,
                                 dataType: 'json',
                                 beforeSend : function () {
-                                    $('.ploader').fadeIn(0);
+                                    $('.btn-add').val('Ждите..');
                                 },
                                 complete : function () {
-
+                                    $('.btn-add').val('Отправить');
                                 },
                                 success: function (data) {
                                     if(data["success"]){
-                                        window.location.href = '<?php echo HTTP_PATH ?>product/show/id/'+data["id"]+'/';
+                                        window.location.href = '/category/show/id/'+data["cat"]+'/';
                                     }else{
-                                        $('.ploader').delay(0).fadeOut('slow');
-                                        $('.error').show().html(data["msg"]);
+                                        $('.contact-message').show().html(data["msg"]);
                                     }
                                 },
                                 error: product.error
@@ -76,44 +72,8 @@
             };
             product.insert();
 
-            var myModaMenul = new ModalApp.ModalProcess({ id: 'myMenuModal', title: 'Все категории'});
-            myModaMenul.init();
-            $('.viewmenu').click(function(e){
-                e.preventDefault();
-                var href = $(this).attr('href');
-                $.ajax({
-                    url: href,
-                    type: 'get',
-                    beforeSend: function () {
-                        $('.ploader').fadeIn();
-                    },
-                    complete: function () {
-                        $('.ploader').delay(0).fadeOut('slow');
-                    },
-                    success: function (data) {
-                        myModaMenul.changeFooter('');
-                        myModaMenul.changeBody(data);
-                        myModaMenul.showModal();
-                    }
-                })
-            });
-            $('#myMenuModal').on('shown.bs.modal', function () {
-                $('.but_title, .but_title_do').click(function() {
-                    $(this).next('menu').slideToggle();
-                });
-            });
-            $("#select-cat").change(function () {
-                var cat_id = $(this).val();
-                $.ajax({
-                    url: '/admindetail/getcatparam/',
-                    data: 'cat_id=' + cat_id,
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        $('#param-block').html(data);
-                    }
-                })
-            });
+
+
         });
     </script>
 
@@ -143,7 +103,6 @@
                     <li class="active nav-item"><a href="#tabs-1"  class="nav-link active" role="tab" data-toggle="tab">Основное</a></li>
                     <li class="nav-item"><a href="#tabs-2"  class="nav-link" role="tab" data-toggle="tab">Описание</a></li>
                     <li class="nav-item"><a href="#tabs-3"  class="nav-link" role="tab" data-toggle="tab">SEO</a></li>
-                    <li class="nav-item"><a href="#tabs-4"  class="nav-link" role="tab" data-toggle="tab">Яндекс.Маркет</a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="tabs-1" class="tab-pane fade show active">
@@ -151,36 +110,43 @@
                         <table class="table admin-add-detail">
                             <tr>
                                 <td>Название: </td>
-                                <td><input class="form-control" type="text" value="" name="name" id="name"></td>
+                                <td><input class="form-control" type="text" value="<?php echo $this->name; ?>" name="name" id="name"></td>
                             </tr>
                             <tr>
                                 <td>Артикул: </td>
-                                <td><input class="form-control" type="text" value="" name="sku" id="sku"></td>
+                                <td><input class="form-control" type="text" value="<?php echo $this->sku; ?>" name="sku" id="sku"></td>
                             </tr>
                             <tr>
                                 <td>Цена: </td>
-                                <td><input class="form-control" type="text" value="" name="price"></td>
+                                <td><input class="form-control" type="text" value="<?php echo $this->price; ?>" name="price"></td>
                             </tr>
                             <tr>
                                 <td>Старая цена: <br /><small>указывется, если товар в акции</small></td>
-                                <td><input class="form-control" type="text" value="" name="old_price"></td>
+                                <td><input class="form-control" type="text" value="<?php echo $this->old_price; ?>" name="old_price"></td>
                             </tr>
                             <tr>
                                 <td>Валюта:</td>
                                 <td>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" name="valuta"  id="customRadio1" value="R" class="custom-control-input" data-toggle="radio" checked>
+                                        <?php $checked = $this->valuta == "R" ? " checked" : ""; ?>
+                                        <input type="radio" name="valuta"  id="customRadio1" value="R" class="custom-control-input" data-toggle="radio"<?php echo $checked ?>>
                                         <label class="custom-control-label" for="customRadio1">Рубль</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" name="valuta"  id="customRadio2" value="E" class="custom-control-input" data-toggle="radio">
+                                        <?php $checked = $this->valuta == "E" ? " checked" : ""; ?>
+                                        <input type="radio" name="valuta"  id="customRadio2" value="E" class="custom-control-input" data-toggle="radio"<?php echo $checked ?>>
                                         <label class="custom-control-label" for="customRadio2">Евро</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" name="valuta"  id="customRadio3" value="D" class="custom-control-input" data-toggle="radio">
+                                        <?php $checked = $this->valuta == "D" ? " checked" : ""; ?>
+                                        <input type="radio" name="valuta"  id="customRadio3" value="D" class="custom-control-input" data-toggle="radio"<?php echo $checked ?>>
                                         <label class="custom-control-label" for="customRadio3">Доллар</label>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><img src="/images/product/<?php echo $this->thumb_img; ?>" alt=""></td>
                             </tr>
                             <tr>
                                 <td>Изображение:</td>
@@ -197,44 +163,27 @@
                         </table>
                     </div>
                     <div id="tabs-2" class="tab-pane fade">
-                        <h3 class="mt-5">Промо-текст</h3><textarea id="editor2" class="form-control" name="promo"></textarea>
-                        <h3>Описание</h3><textarea id="editor1" class="form-control" name="description"></textarea><br />
-                        <script type='text/javascript'>
-                            CKEDITOR.replace( 'editor2', {toolbar : 'MyToolbar'} );
-                            CKEDITOR.replace( 'editor1', {toolbar : 'MyToolbar'} );
-                        </script>
+                        <br /><br />
+                        <textarea id="editor1" class="form-control" name="description"><?php echo $this->description; ?></textarea><br />
+
                         Комлектация (через запятую):
-                        <input class="form-control input-sm w-50" type="text" value="" name="complete" id="complete"> <br />
+                        <input class="form-control input-sm w-50" type="text" value="<?php echo $this->complete; ?>" name="complete" id="complete"> <br />
                         <div class="clearfix"></div>
-                        <div class="form-group col-md-6 my-3" id="param-block">
-                        </div>
+
                         <br />
                     </div>
                     <div id="tabs-3" class="tab-pane fade">
                         <br />
-                        Title: <br /><input class="form-control" type="text" value="" name="title"><br />
-                        Keywords: <br /><textarea class="form-control" name="keywords"></textarea><br />
-                        Description: <br /><textarea class="form-control" name="seo_desc"></textarea><br /><br />
+                        Title: <br /><input class="form-control" type="text" value="<?php echo $this->title; ?>" name="title"><br />
+                        Keywords: <br /><textarea class="form-control" name="keywords"><?php echo $this->keywords; ?></textarea><br />
+                        Description: <br /><textarea class="form-control" name="seo_desc"><?php echo $this->seo_desc; ?></textarea><br /><br />
+                        <input type="hidden" value="<?php echo $this->cat_id; ?>" name='cat_id'>
+                        <input type="hidden" value="<?php echo $this->id; ?>" name='product_id'>
+                        <input type="hidden" name="thumb_img" value="<?php echo $this->thumb_img ?>"/>
+                        <input type="hidden" name="full_img" value="<?php echo $this->full_img ?>"/>
                     </div>
-                    <div id="tabs-4" class="tab-pane fade">
-                        <br />
-                        Модель: (если модель не указана, товар не будет отображаться в файле YML)<br /><input class="form-control" type="text" value="" name="model"><br />
-                        Категория товара, в которой он должен быть размещен на Яндекс.Маркете. Допустимо указывать названия категорий только из товарного дерева категорий Яндекс.Маркета. <a href="http://help.yandex.ru/partnermarket/docs/market_categories.xls">Скачать дерево категорий</a> <br /><input class="form-control" type="text" value="" name="yandex_cat"><br />
 
-                        <div class="custom-control custom-radio">
-                            <input type="radio" name="garant"  id="garant1" value="false"  class="custom-control-input" data-toggle="radio" >
-                            <label class="custom-control-label" for="garant1">товар не имеет официальной гарантии</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" name="garant"  id="garant2" value="true"  class="custom-control-input" data-toggle="radio">
-                            <label class="custom-control-label" for="garant2">товар имеет официальную гарантию</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" name="garant"  id="garant3" value="null"  class="custom-control-input" data-toggle="radio" checked>
-                            <label class="custom-control-label" for="garant3">не указывать гарантию</label>
-                        </div>
 
-                    </div>
                 </div>
                 <div class="alert alert-danger error" role="alert"></div>
                 <input class="btn btn-primary btn-add my-5" type="submit" value="Добавить">

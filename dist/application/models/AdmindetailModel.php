@@ -11,7 +11,9 @@ class AdmindetailModel{
         $this->_db = DBConnect::run();
         
     }
-    
+
+
+
     public function drawParametrForAdminDetail($cat_id,$product_id){
         $out = "";
         $cat_id = $this->_db->quote($cat_id);
@@ -96,7 +98,7 @@ class AdmindetailModel{
     
     
     
-    public function updateProductTable($product_id,$name,$sku,$price,$old_price,$description,$new,$liders,$sale,$thumb_img,$full_img,$title,$keywords,$seo_desc,$complete,$model,$yandex_cat,$garant,$valuta,$promo){
+    public function updateProductTable($product_id,$name,$sku,$price,$old_price,$description,$thumb_img,$full_img,$title,$keywords,$seo_desc,$complete){
         
        if(defined('PARAM')) $compare = 1; else $compare = 0;
         
@@ -106,9 +108,7 @@ class AdmindetailModel{
        $price       = $this->_db->quote($price);
        $old_price   = $this->_db->quote($old_price);
        $description = $this->_db->quote($description);
-       $new         = $this->_db->quote($new);
-       $liders      = $this->_db->quote($liders);
-       $sale        = $this->_db->quote($sale);
+
        $thumb_img   = $this->_db->quote($thumb_img);
        $full_img    = $this->_db->quote($full_img);
        $title       = $this->_db->quote($title);
@@ -116,11 +116,7 @@ class AdmindetailModel{
        $seo_desc    = $this->_db->quote($seo_desc);
        $compare     = $this->_db->quote($compare);
        $complete    = $this->_db->quote($complete);
-       $model       = $this->_db->quote($model);
-       $yandex_cat  = $this->_db->quote($yandex_cat);
-       $garant      = $this->_db->quote($garant);
-       $valuta      = $this->_db->quote($valuta);
-       $promo       = $this->_db->quote($promo);
+
        
            
         $sql = "UPDATE product
@@ -129,21 +125,14 @@ class AdmindetailModel{
                     price       = $price,
                     old_price   = $old_price,
                     description = $description,
-                    new         = $new,
-                    liders      = $liders,
-                    sale        = $sale,
                     thumb_img   = $thumb_img,
                     full_img    = $full_img,
                     title       = $title,
                     keywords    = $keywords,
                     seo_desc    = $seo_desc,
                     compare     = $compare,
-                    complete    = $complete,
-                    model       = $model,
-                    yandex_cat  = $yandex_cat,
-                    garant      = $garant,
-                    valuta      = $valuta,
-                    promo       = $promo
+                    complete    = $complete
+                   
                 WHERE id        = $product_id
                 LIMIT 1";
         try{      
@@ -441,34 +430,24 @@ public function deleteProduct($product_id){
 }
 
 
-public function addProductTable($name,$sku,$price,$old_price,$description,$new,$liders,$sale,$thumb_img,$full_img,$title,$keywords,$seo_desc,$compare,$complete,$model,$yandex_cat,$garant,$valuta,$promo){
+public function addProductTable($name,$sku,$price,$old_price,$description,$thumb_img,$full_img,$title,$keywords,$seo_desc,$complete){
         
-       if(defined('PARAM')) $compare = 1; else $compare = 0;
-        
+
        
        $name        = $this->_db->quote($name);
        $sku         = $this->_db->quote($sku);
        $price       = $this->_db->quote($price);
-       $old_price   = $this->_db->quote($old_price);
        $description = $this->_db->quote($description);
-       $new         = $this->_db->quote($new);
-       $liders      = $this->_db->quote($liders);
-       $sale        = $this->_db->quote($sale);
        $thumb_img   = $this->_db->quote($thumb_img);
        $full_img    = $this->_db->quote($full_img);
        $title       = $this->_db->quote($title);
        $keywords    = $this->_db->quote($keywords);
        $seo_desc    = $this->_db->quote($seo_desc);
-       $compare     = $this->_db->quote($compare);
 	   $complete    = $this->_db->quote($complete);
-       $model       = $this->_db->quote($model);
-       $yandex_cat  = $this->_db->quote($yandex_cat);
-       $garant      = $this->_db->quote($garant);
-       $valuta      = $this->_db->quote($valuta);
-       $promo       = $this->_db->quote($promo);
+
        
-       $sql="INSERT INTO product (name,sku,price,old_price,description,new,liders,sale,thumb_img,full_img,title,keywords,seo_desc,compare,complete,model,yandex_cat,garant,valuta,promo)
-             VALUES ($name,$sku,$price,$old_price,$description,$new,$liders,$sale,$thumb_img,$full_img,$title,$keywords,$seo_desc,$compare,$complete,$model,$yandex_cat,$garant,$valuta,$promo)";        
+       $sql="INSERT INTO product (name,sku,price,old_price,shot_desc,thumb_img,full_img,title,keywords,seo_desc,complete)
+             VALUES ($name,$sku,$price,$old_price,$description,$thumb_img,$full_img,$title,$keywords,$seo_desc,$complete)";
         try{      
         $result = $this->_db->exec($sql); 
         $insertId = $this->_db->lastInsertId();

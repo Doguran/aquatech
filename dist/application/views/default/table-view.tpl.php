@@ -6,22 +6,26 @@
         <table data-tablesaw-no-labels data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-mode="stack" class="table table-bordered table-sm exel tablesaw tablesaw-row-zebra tablesaw-stack">
             <thead>
             <tr class="bg-warning">
-                <th rowspan="2" scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Наименование</th>
-                <th rowspan="2" scope="col" data-tablesaw-sortable-col>Арт</th>
-                <th rowspan="2" scope="col">Описание</th>
-                <th rowspan="2" scope="col">Фото</th>
-                <th colspan="2" scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-numeric>Цена</th>
-                <th rowspan="2" scope="col"></th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Наименование</th>
+                <th scope="col" data-tablesaw-sortable-col>Арт</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Фото</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-numeric>Цена<br>(руб.)</th>
+                <th scope="col"></th>
             </tr>
-            <tr class="bg-warning">
-                <th scope="col">EVRO</th>
-                <th scope="col">РУБ.</th>
-            </tr>
+
             </thead>
             <tbody>
             <?php foreach ($this->contentArr as $val) : ?>
             <tr>
-                <th scope="row" class="bg-light"><?php echo $val["name"] ?></th>
+                <th scope="row" class="bg-light"><?php echo $val["name"] ?>
+                <?php if(ADMIN) : ?>
+                    <div class="admin-link-table">
+                        <a href="/admindetail/delete/id/<?php echo $val["id"] ?>/cat/<?php echo $this->cat_id ?>/" class="del" onclick="return confirm('Действительно удалить?');"><i class="fas fa-times-circle"></i></a>
+                        <a href="/admindetail/show/id/<?php echo $val["id"] ?>/" class="edit"><i class="fas fa-edit"></i></a>
+                    </div>
+                <?php endif; ?>
+                </th>
                 <td><?php echo $val["sku"] ?></td>
                 <td><?php echo $val["shot_desc"] ?></td>
                 <td>
@@ -32,7 +36,7 @@
 
                 <?php if ($val["price"] == "0"
                           || $val["price"] == "") : ?>
-                    <td class="text-nowrap"></td>
+
                     <td class="text-nowrap"></td>
                     <td class="text-nowrap text-md-center">
                         <a class="btn btn-light askprice  text-secondary" id="ask_<?php echo $val["id"] ?>"
@@ -40,8 +44,8 @@
                     </td>
 
                 <?php else : ?>
-                    <td class="text-nowrap"><?php echo $val["price"] ?> &euro;</td>
-                    <td class="text-nowrap"><?php echo $val["price"] ?> р.</td>
+
+                    <td class="text-nowrap"><?php echo $val["price"] ?></td>
                     <td class="text-nowrap text-md-center">
 
                         <?php if (!CartController::findtoCart($val["id"])) : //если товар не в корзине ?>

@@ -112,6 +112,31 @@ class CatModel{
 
     }
 
+    private function _drawCatOption($id, &$out, $parent=0, &$level=0){
+
+
+        foreach($this->_myCat as $row){
+            if($row['parent_id']==$parent){
+                $sel=($row['id']==$id)?' selected':'';
+                $level++;
+                $optionClass = ($level==1)?"class='mainCat'":"";
+                $out.="<option $optionClass value='$row[id]'$sel>".str_repeat("\t&nbsp;",$level)."$row[name]</option>";
+                /*$out.=sprintf('%s<li><a href="http://'.$_SERVER['HTTP_HOST'].'/category/show/id/%d/">%s</a>',
+                  str_repeat("\t",$level),$row['id'],$row['name']);*/
+                $inner='';
+                $level++;
+                $this->_drawCatOption($id,$inner,$row['id'],$level);
+                $level--;
+                if(strlen($inner)>0){
+                    $out.= "\n".$inner."\n";
+                }
+                $out.="\n";
+                $level--;
+            }
+        }
+        return $out;
+    }
+
     private function _drawCatOptionForAdd(&$out, $parent=0, &$level=0){
         if(empty($this->_myCat)) $this->_getCatList();
 
@@ -193,6 +218,10 @@ class CatModel{
     public function getCatOptionForAdd() {
         $out="";
         return $this->_drawCatOptionForAdd($out,0);
+    }
+    public function getCatOption($cat_id) {
+        $out = '';
+        return $this->_drawCatOption($cat_id,$out,0);
     }
 
 
