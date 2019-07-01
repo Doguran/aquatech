@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="table<?php echo $this->cat_id ?>">
         <p class="w-100 text-center bg-info py-2 text-white"><?php echo $this->cat_name; ?></p>
 </div>
 <div class="container mb-5">

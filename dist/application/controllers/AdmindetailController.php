@@ -219,6 +219,9 @@ class AdmindetailController implements IController {
                             @unlink("images/product/".$full_img);
                         }
                   }
+
+                    $CatModel = new CatModel();
+                    $predok_cat_id = $CatModel->getPredok($new_cat_id);
                   
                   
 //                  $AdmindetailModel->delBuyTogether($product_id);
@@ -228,6 +231,7 @@ class AdmindetailController implements IController {
                       
                 $resData["success"] = 1;
                 $resData["cat"] = $new_cat_id;
+                $resData["predok"] = $predok_cat_id["predok"];
                    
                                       
                 }catch(Exception $e){
@@ -264,7 +268,9 @@ class AdmindetailController implements IController {
             
         $product_id = abs((int)$params["id"]); 
         $cat_id = abs((int)$params["cat"]);
-        header("Location: /category/show/id/$cat_id/");           
+        $CatModel = new CatModel();
+        $predok_cat_id = $CatModel->getPredok($cat_id);
+        header("Location: /category/show/id/$predok_cat_id[predok]/#table$cat_id");
         $AdmindetailModel = new AdmindetailModel();
         $AdmindetailModel->deleteProduct($product_id);
         
@@ -302,7 +308,7 @@ class AdmindetailController implements IController {
         $model->action  = "insert";
         $model->id = null;
         $model->cat_id = null;
-        
+
 //        $textModel = new TextModel();
 //        $model->contact = $textModel->getContact();
         
@@ -327,7 +333,7 @@ class AdmindetailController implements IController {
             $title       = Helper::clearData($_POST['title']);
             $keywords    = Helper::clearData($_POST['keywords']);
             $seo_desc    = Helper::clearData($_POST['seo_desc']);
-            $new_cat_id  = Helper::clearData($_POST['cat_id'],"i");
+            $new_cat_id  = Helper::clearData($_POST['new_cat_id'],"i");
             $valuta      = Helper::clearData($_POST['valuta']);
 //            $url         = Helper::clearData($_POST['url']);
 //            $url = !$url ? Helper::getChpu($name) : Helper::getChpu($url);
@@ -370,6 +376,10 @@ class AdmindetailController implements IController {
 
                     $AdmindetailModel->insertProductCategory($product_id,$new_cat_id);
 
+                    $CatModel = new CatModel();
+                    $predok_cat_id = $CatModel->getPredok($new_cat_id);
+
+
 
 //                    if($parametrs){
 //                        foreach ($parametrs as $k=>$v) {
@@ -383,6 +393,7 @@ class AdmindetailController implements IController {
                     $resData["success"] = 1;
                     $resData["id"] = $product_id;
                     $resData["cat"] = $new_cat_id;
+                    $resData["predok"] = $predok_cat_id["predok"];
 
                 }catch(Exception $e){
                     $resData["success"] = 0;

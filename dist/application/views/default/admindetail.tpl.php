@@ -36,7 +36,7 @@
                                 },
                                 success: function (data) {
                                     if(data["success"]){
-                                        window.location.href = '/category/show/id/'+data["cat"]+'/';
+                                        window.location.href = '/category/show/id/'+data["predok"]+'/#table'+data["cat"];
                                     }else{
                                         $('.contact-message').show().html(data["msg"]);
                                     }
@@ -71,6 +71,34 @@
                 }
             };
             product.insert();
+
+
+            var myModaMenul = new ModalApp.ModalProcess({ id: 'myMenuModal', title: 'Все категории'});
+            myModaMenul.init();
+            $('.viewmenu').click(function(e){
+                e.preventDefault();
+                var href = $(this).attr('href');
+                $.ajax({
+                    url: href,
+                    type: 'get',
+                    beforeSend: function () {
+                        $('.ploader').fadeIn();
+                    },
+                    complete: function () {
+                        $('.ploader').delay(0).fadeOut('slow');
+                    },
+                    success: function (data) {
+                        myModaMenul.changeFooter('');
+                        myModaMenul.changeBody(data);
+                        myModaMenul.showModal();
+                    }
+                })
+            });
+            $('#myMenuModal').on('shown.bs.modal', function () {
+                $('.but_title, .but_title_do').click(function() {
+                    $(this).next('menu').slideToggle();
+                });
+            });
 
 
 

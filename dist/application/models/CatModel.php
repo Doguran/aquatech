@@ -208,6 +208,15 @@ class CatModel{
         return  $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getPredok($cat_id){
+        $cat_id  = $this->_db->quote($cat_id);
+        $sql = "SELECT predok
+                FROM category
+                WHERE id = $cat_id";
+        $stmt = $this->_db->query($sql);
+        return  $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getCategories() {
         $out = '';
         $this->_drawCatMenu($out,0);

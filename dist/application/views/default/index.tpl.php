@@ -67,6 +67,8 @@
     </div>
     <div class="container mb-3">
 
+
+
                 <ul class="nav nav-pills">
                    <?php echo $this->categories ?>
                 </ul>
