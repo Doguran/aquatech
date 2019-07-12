@@ -78,15 +78,11 @@ class Helper {
 ############################################################
 //функция генерирует случайные знаки
 ###########################################################
-public function generateString($length = 8)
+public static function generateString($length = 8)
 {
     $chars = 'abdefhiknrstyzABDEFGHKNQRSTYZ0123456789';
-    $numChars = strlen($chars);
-    $string = '';
-    for ($i = 0; $i < $length; $i++) {
-        $string .= substr($chars, rand(1, $numChars) - 1, 1);
-    }
-    return $string;
+    return substr(str_shuffle($chars), 0, $length);
+
 }
 
     #########################################################################
@@ -348,7 +344,30 @@ public static function create_small_copy($file_name, $width, $height, $category_
 
     }
 
+
+    #########################################################################
+    /**
+     * создает массив из латинских букв определенной длины
+     *
+     * @param int $length
+     *
+     * @return array
+     */
+     public static function createLetterRange($length) {
+        $range   = [];
+        $letters = range('A', 'Z');
+        for ($i = 0; $i < $length; $i++) {
+            $position = $i * 26;
+            foreach ($letters as $ii => $letter) {
+                $position++;
+                if ($position <= $length) {
+                    $range[] = ($position > 26 ? $range[$i - 1] : '') . $letter;
+                }
+            }
+        }
+        return $range;
+    }
+
     
 }
 
-?>

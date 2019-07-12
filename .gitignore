@@ -5,8 +5,13 @@
 /package-lock.json
 node_modules/
 vendor/
+dist/exel/
+dist/vendor/
 dist/application/views/default/css/
 dist/application/views/default/js/
 dist/application/views/default/img/
 dist/application/views/default/fonts/
 dist/images/
+dist/composer.json
+dist/composer.lock
+dist/PhpSpreadsheet
