@@ -368,6 +368,42 @@ public static function create_small_copy($file_name, $width, $height, $category_
         return $range;
     }
 
+
+    ###########################################################################
+    //функция загрузки изображений из формы, возвращает имя файла
+    ###########################################################################
+    public static function uploadXlsx($uploaddir = 'xlsx/')
+    {
+
+        if ($_FILES['file']['error'] == 0) {
+            if ($_FILES['photo']['type'] == 'image/png' || $_FILES['photo']['type'] ==
+                                                           'image/jpg' || $_FILES['photo']['type'] == 'image/gif' || $_FILES['photo']['type'] ==
+                                                                                                                     'image/jpeg' || $_FILES['photo']['type'] == 'image/pjpeg') {
+
+                $info = getimagesize($_FILES['photo']['tmp_name']); //берем информацию о файле
+                if (preg_match('{image/(.*)}is', $info['mime'], $extension)) { //убеждаемся что файл есть ни что иное как изображение и заносим расширение файла в $extension[1]
+                    //$newname = $this->generateString() . "." . $extension[1];
+                    $newname = substr(md5(date('YmdHis')), 0, 16) . "." . $extension[1];
+                    $result = move_uploaded_file($_FILES['photo']['tmp_name'], $uploaddir . $newname);
+                    if ($result && file_exists($uploaddir . $newname)) {
+                        return $newname;
+                    } else {
+                        return false;
+                    }
+
+                } else {
+                    return false;
+                }
+
+            } else {
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+
+    }
     
 }
 
