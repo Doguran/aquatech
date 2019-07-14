@@ -4,10 +4,11 @@
 class XlsxparserController implements IController {
 
     protected $_row_parse = 8;   //на  сколько столбцов парсить
-    protected $_col_parse = 150;   //на сколько строк
-    protected $_path_to_xl = 'sc/';  //путь до папки xl
+    protected $_col_parse = 845;   //на сколько строк
+    protected $_path_to_xl = 'exel/';  //путь до папки xl
     protected $_cell_img = 3; //в каком столбце картинка считаем с 0
-    protected $_path_to_out_img = '../img/'; //путь до папки куда складывать картинки
+    protected $_path_to_out_img = 'imgProduct/'; //путь до папки куда складывать картинки
+    protected $_sharedStringsArray = array();
 
 
 
@@ -56,12 +57,12 @@ class XlsxparserController implements IController {
             }
             $sharedStringsArr[] = $t;
         }
-        return $sharedStringsArr;
+        return $this->_sharedStringsArray = $sharedStringsArr;
     }
 
     //unset($xml);
 
-    public function parseXslxAllSheets() {
+    public function parserXslxAllSheets() {
         $workbookXml = simplexml_load_file($this->_path_to_xl.'xl/workbook.xml');
         //преобразовываем в массив id и имя листа workbook.xml
         $workbookArr = [];
@@ -76,7 +77,9 @@ class XlsxparserController implements IController {
     //unset($workbookXml);
 
 
-    public function parseXslxSheet($rId = "rId3"){
+    public function parserXslxSheet($rId){
+
+        $this->_sharedStringsToArray();
 
         $workbookXml_rels = simplexml_load_file($this->_path_to_xl.'xl/_rels/workbook.xml.rels');
         $ns               = $workbookXml_rels->getNameSpaces()[""];
@@ -170,7 +173,7 @@ class XlsxparserController implements IController {
 
                 }
                 else {
-                    $out[$row][$cell] = isset($attr['t']) ? $this->_sharedStringsToArray()[$value]
+                    $out[$row][$cell] = isset($attr['t']) ? $this->_sharedStringsArray[$value]
                       : $value;
                     $cell++;
                     if ($cell > $this->_row_parse) {
@@ -185,7 +188,7 @@ class XlsxparserController implements IController {
                 break;
             }
         }
-        unset($sharedStringsArr, $drawingXml, $sheetXml);
+        unset($drawingXml, $sheetXml);
 
         //собираем итоговый массив
         foreach ($out as $key => &$val) {

@@ -7,6 +7,9 @@
  */
 
 class ExelController implements IController {
+
+    public $exelPath = 'exel'; //директория для распаковки файла exel
+
     public function __construct(){
         if(!ADMIN)
             throw new Exception("Нет доступа");
@@ -14,36 +17,39 @@ class ExelController implements IController {
     public function indexAction() {
         $fc = FrontController::getInstance();
         $model = new FileModel();
-        if(isset($_FILES)){
-                    if ($_FILES['file']['size']>0){
-                        //var_dump($_FILES['file']);
+
+        $message = '';
+                    if (isset($_FILES['file']) AND $_FILES['file']['size']>0){
                         if(mime_content_type($_FILES['file']["tmp_name"]) == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
                             $zip = new ZipArchive;
                             $res = $zip->open($_FILES['file']["tmp_name"]);
 
                             if ($res === TRUE) {
-                                $this->_rmRec('exel/'); //удаляем старое содержимое папки
-                                $zip->extractTo('exel/');
+                                $this->_rmRec($this->exelPath); //удаляем старое содержимое папки
+                                $zip->extractTo($this->exelPath);
                                 $zip->close();
 
-                                echo "ok";
+                                $message = 'Файл загружен и распакован успешно!';
 
                             } else {
-                                $error[] = "Не удалось распаковать файл";
+                                $message = "Не удалось распаковать файл.";
                             }
 
                         }else{
-                            $error[] = "Загружен неправильный тип файла";
+                            $message = "Загружен неправильный тип файла.";
                         };
                     }
 
-        var_dump($_FILES);
-        echo mime_content_type($_FILES['file']["tmp_name"]);
+                    $XlsxparserController = new XlsxparserController();
+                    $sheets = $XlsxparserController->parserXslxAllSheets();
+                    $model->sheets = $sheets;
+                    $model->selectSize = count($sheets);
+                    $model->message = $message;
+
+
+
         $output = $model->render("exel.tpl.php");
         $fc->setBody($output);
-        }
-
-
 
     }
 
@@ -54,27 +60,32 @@ class ExelController implements IController {
         if (is_dir($path)) {
             foreach(scandir($path) as $p) if (($p!='.') && ($p!='..'))
                 $this->_rmRec($path.DIRECTORY_SEPARATOR.$p);
-            return rmdir($path);
+            if(!$path == $this->exelPath)
+                return rmdir($path);
+            else
+                return false;
         }
         return false;
     }
 
-    public function mimeAction(){
 
-        header('Content-Type: text/html; charset=utf-8');
-        $odir = opendir('exel');
-        while (($file = readdir($odir)) !== FALSE)
-        {
-            if ($file != '.' && $file != '..')
-            {
-                //echo $file.'<br>';
-                echo mime_content_type('exel/'.$file);
+    public function insertAction() {
+        if($_SERVER["REQUEST_METHOD"]=='POST'){
+            $XlsxparserController = new XlsxparserController();
+            foreach ($_POST['id'] AS $val){
+                $id = Helper::clearData($val);
+
+                $sheets = $XlsxparserController->parserXslxSheet($id);
+                Helper::print_arr($sheets);
             }
+
+
+
         }
-        closedir($odir);
-
-
 
     }
+
+
+
 
 }
