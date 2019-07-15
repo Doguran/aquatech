@@ -4,7 +4,7 @@
 class XlsxparserController implements IController {
 
     protected $_row_parse = 8;   //на  сколько столбцов парсить
-    protected $_col_parse = 845;   //на сколько строк
+    //protected $_col_parse = 845;   //на сколько строк
     protected $_path_to_xl = 'exel/';  //путь до папки xl
     protected $_cell_img = 3; //в каком столбце картинка считаем с 0
     protected $_path_to_out_img = 'imgProduct/'; //путь до папки куда складывать картинки
@@ -184,9 +184,9 @@ class XlsxparserController implements IController {
 
             }
             $row++;
-            if ($row > $this->_col_parse) {
-                break;
-            }
+//            if ($row > $this->_col_parse) {
+//                break;
+//            }
         }
         unset($drawingXml, $sheetXml);
 

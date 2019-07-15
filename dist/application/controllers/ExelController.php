@@ -9,6 +9,8 @@
 class ExelController implements IController {
 
     public $exelPath = 'exel'; //директория для распаковки файла exel
+    protected  $_mainCat = "";
+    protected  $_subCat = "";
 
     public function __construct(){
         if(!ADMIN)
@@ -72,11 +74,25 @@ class ExelController implements IController {
     public function insertAction() {
         if($_SERVER["REQUEST_METHOD"]=='POST'){
             $XlsxparserController = new XlsxparserController();
+            $sheets = $XlsxparserController->parserXslxAllSheets();
             foreach ($_POST['id'] AS $val){
                 $id = Helper::clearData($val);
-
+                $this->_mainCat = $sheets[$id];
                 $sheets = $XlsxparserController->parserXslxSheet($id);
-                Helper::print_arr($sheets);
+                //исключаем пустые массивы и пустые ячейки
+                foreach($sheets AS $v){
+                    $product = array_filter($v,'strlen' );
+                    if(count($product) == 1){
+                        $this->_subCat = $product[0];
+                    }else{
+
+                    }
+                }
+
+                $sheets = (array_filter($sheets));
+                $_SESSION["subCat"] = $sheets[$id];
+
+
             }
 
 
