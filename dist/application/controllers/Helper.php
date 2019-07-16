@@ -404,6 +404,20 @@ public static function create_small_copy($file_name, $width, $height, $category_
         }
 
     }
+
+
+
+
+    ####################################### функция рекурсивного удаления файлов и папок
+    public static function rmRec($path) {
+        if (is_file($path)) return unlink($path);
+        if (is_dir($path)) {
+            foreach(scandir($path) as $p) if (($p!='.') && ($p!='..'))
+                self::rmRec($path.DIRECTORY_SEPARATOR.$p);
+            return rmdir($path);
+        }
+        return false;
+    }
     
 }
 

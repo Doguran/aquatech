@@ -27,8 +27,9 @@ class ExelController implements IController {
                             $res = $zip->open($_FILES['file']["tmp_name"]);
 
                             if ($res === TRUE) {
-                                $this->_rmRec($this->exelPath); //удаляем старое содержимое папки
-                                $zip->extractTo($this->exelPath);
+                                Helper::rmRec($this->exelPath); //удаляем старое содержимое папки
+                                mkdir($this->exelPath); //создаем папку
+                                $zip->extractTo($this->exelPath); //распаковываем в этупапку
                                 $zip->close();
 
                                 $message = 'Файл загружен и распакован успешно!';
@@ -57,28 +58,30 @@ class ExelController implements IController {
 
 
     //функция удаляет рекурсивно все файлы и папки
-    private function _rmRec($path) {
-        if (is_file($path)) return unlink($path);
-        if (is_dir($path)) {
-            foreach(scandir($path) as $p) if (($p!='.') && ($p!='..'))
-                $this->_rmRec($path.DIRECTORY_SEPARATOR.$p);
-            if(!$path == $this->exelPath)
-                return rmdir($path);
-            else
-                return false;
-        }
-        return false;
-    }
+//    private function _rmRec($path) {
+//        if (is_file($path)) return unlink($path);
+//        if (is_dir($path)) {
+//            foreach(scandir($path) as $p) if (($p!='.') && ($p!='..'))
+//                $this->_rmRec($path.DIRECTORY_SEPARATOR.$p);
+//            if(!$path == $this->exelPath)
+//                return rmdir($path);
+//            else
+//                return false;
+//        }
+//        return false;
+//    }
 
 
     public function insertAction() {
         if($_SERVER["REQUEST_METHOD"]=='POST'){
             $XlsxparserController = new XlsxparserController();
-            $sheets = $XlsxparserController->parserXslxAllSheets();
+            $sheet = $XlsxparserController->parserXslxAllSheets();
             foreach ($_POST['id'] AS $val){
                 $id = Helper::clearData($val);
-                $this->_mainCat = $sheets[$id];
-                $sheets = $XlsxparserController->parserXslxSheet($id);
+                list($rId,$imgDir) = explode("|", $id, 2);
+                $this->_mainCat = $sheet[$rId];
+
+                $sheets = $XlsxparserController->parserXslxSheet($rId,$imgDir);
                 //исключаем пустые массивы и пустые ячейки
                 foreach($sheets AS $v){
                     $product = array_filter($v,'strlen' );
@@ -90,7 +93,7 @@ class ExelController implements IController {
                 }
 
                 $sheets = (array_filter($sheets));
-                $_SESSION["subCat"] = $sheets[$id];
+
 
 
             }

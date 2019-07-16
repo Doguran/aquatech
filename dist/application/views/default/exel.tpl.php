@@ -56,7 +56,7 @@
         <form action="/exel/insert/" method="post">
             <select name="id[]" class="form-control" size="<?php echo $this->selectSize; ?>" multiple>
                 <?php foreach ($this->sheets AS $key=>$val) : ?>
-                    <option value="<?php echo $key; ?>"><?php echo $val; ?></option>
+                    <option value="<?php echo $key."|".Helper::getChpu($val); ?>"><?php echo $val; ?></option>
                 <?php endforeach; ?>
             </select>
             <div class="row">

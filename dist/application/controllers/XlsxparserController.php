@@ -10,8 +10,6 @@ class XlsxparserController implements IController {
     protected $_path_to_out_img = 'imgProduct/'; //путь до папки куда складывать картинки
     protected $_sharedStringsArray = array();
 
-
-
     public function __construct(){
 
         if(!ADMIN)
@@ -77,9 +75,11 @@ class XlsxparserController implements IController {
     //unset($workbookXml);
 
 
-    public function parserXslxSheet($rId){
+    public function parserXslxSheet($rId,$imgDir){
 
         $this->_sharedStringsToArray();
+        // удаляем папку с картинками
+        Helper::rmRec($this->_path_to_out_img.$imgDir);
 
         $workbookXml_rels = simplexml_load_file($this->_path_to_xl.'xl/_rels/workbook.xml.rels');
         $ns               = $workbookXml_rels->getNameSpaces()[""];
@@ -92,6 +92,9 @@ class XlsxparserController implements IController {
         //узнаем есть ли картинки, если да - загружаем drawing
         $drawingTag = $sheetXml->drawing;
         if ($drawingTag) {
+
+            @mkdir($this->_path_to_out_img.$imgDir);
+
             $namespaces         = $sheetXml->getNameSpaces(TRUE);
             $a                  = $sheetXml->drawing->attributes($namespaces['r']);
             $drawingrId         = (string) $a->id;
@@ -126,7 +129,7 @@ class XlsxparserController implements IController {
                 foreach (range($item->from->row, $item->to->row) AS $val) {
                     $newName = Helper::generateString() . '.'
                                . pathinfo($imgPath, PATHINFO_EXTENSION);
-                    copy ($this->_path_to_xl.'xl/media/'.basename($imgPath), $this->_path_to_out_img.$newName);
+                    copy ($this->_path_to_xl.'xl/media/'.basename($imgPath), $this->_path_to_out_img.$imgDir.DIRECTORY_SEPARATOR.$newName);
                     $imgArr[$val]['img'][] = $newName;
                 };
 
