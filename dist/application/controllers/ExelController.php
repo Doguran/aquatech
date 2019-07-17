@@ -57,21 +57,6 @@ class ExelController implements IController {
     }
 
 
-    //функция удаляет рекурсивно все файлы и папки
-//    private function _rmRec($path) {
-//        if (is_file($path)) return unlink($path);
-//        if (is_dir($path)) {
-//            foreach(scandir($path) as $p) if (($p!='.') && ($p!='..'))
-//                $this->_rmRec($path.DIRECTORY_SEPARATOR.$p);
-//            if(!$path == $this->exelPath)
-//                return rmdir($path);
-//            else
-//                return false;
-//        }
-//        return false;
-//    }
-
-
     public function insertAction() {
         if($_SERVER["REQUEST_METHOD"]=='POST'){
             $XlsxparserController = new XlsxparserController();
@@ -80,15 +65,20 @@ class ExelController implements IController {
                 $id = Helper::clearData($val);
                 list($rId,$imgDir) = explode("|", $id, 2);
                 $this->_mainCat = $sheet[$rId];
+                //удаляем все старые товары главной категории
 
                 $sheets = $XlsxparserController->parserXslxSheet($rId,$imgDir);
                 //исключаем пустые массивы и пустые ячейки
-                foreach($sheets AS $v){
-                    $product = array_filter($v,'strlen' );
-                    if(count($product) == 1){
-                        $this->_subCat = $product[0];
-                    }else{
 
+                foreach($sheets AS $v){
+                        $product = array_filter($v,'strlen' );
+                        if($product){//проверка на пустоту
+                            if(count($product) == 1){
+                                $this->_subCat = $product[0];
+                            }else{
+                            Helper::print_arr($product);
+
+                            }
                     }
                 }
 
