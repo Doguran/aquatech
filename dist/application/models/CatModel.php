@@ -233,6 +233,16 @@ class CatModel{
         return $this->_drawCatOption($cat_id,$out,0);
     }
 
+    public function getCatIdByName($catName){
+        $catName  = $this->_db->quote($catName);
+        $sql = "SELECT id
+                FROM category
+                WHERE name = $catName";
+        $stmt = $this->_db->query($sql);
+        return  $stmt->fetch(PDO::FETCH_ASSOC);
+
+    }
+
 
 
 

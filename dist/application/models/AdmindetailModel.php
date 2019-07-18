@@ -468,12 +468,17 @@ public function addProductTable($name,$sku,$price,$old_price,$description,$thumb
             return $insertId;
         }
                 
-    }    
-    
-       
-    
-    
-    
+    }
+
+
+
+
+    public function delAllProductInCat($catName){
+        $CatModel = new CatModel();
+        $cat_id = $CatModel->getCatIdByName($catName);
+
+
+    }
     
     
 }

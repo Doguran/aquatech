@@ -66,9 +66,11 @@ class ExelController implements IController {
                 list($rId,$imgDir) = explode("|", $id, 2);
                 $this->_mainCat = $sheet[$rId];
                 //удаляем все старые товары главной категории
+                $AdmindetailModel = new AdmindetailModel();
+                $AdmindetailModel->delAllProductInCat($sheet[$rId]);
 
                 $sheets = $XlsxparserController->parserXslxSheet($rId,$imgDir);
-                //исключаем пустые массивы и пустые ячейки
+
 
                 foreach($sheets AS $v){
                         $product = array_filter($v,'strlen' );
