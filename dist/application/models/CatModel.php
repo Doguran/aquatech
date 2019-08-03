@@ -239,7 +239,7 @@ class CatModel{
                 FROM category
                 WHERE name = $catName";
         $stmt = $this->_db->query($sql);
-        return  $stmt->fetch(PDO::FETCH_ASSOC);
+        return  $stmt->fetchColumn();
 
     }
 

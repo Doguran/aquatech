@@ -476,7 +476,13 @@ public function addProductTable($name,$sku,$price,$old_price,$description,$thumb
     public function delAllProductInCat($catName){
         $CatModel = new CatModel();
         $cat_id = $CatModel->getCatIdByName($catName);
-        $this->_delCatAndProductForExel($cat_id);
+
+        if($cat_id){
+            $this->_delCatAndProductForExel($cat_id);
+            return $cat_id;
+        }
+        return false;
+
     }
     private function _delCatAndProductForExel($cat_id){
         /// удаляем все товары этой категории
@@ -489,6 +495,7 @@ public function addProductTable($name,$sku,$price,$old_price,$description,$thumb
         $arrProduct =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         /// удаляем товары
+        if($arrProduct){
         $strProduct = implode(",",array_map(function($a) {return $a['product_id'];},$arrProduct));
         $sql = "DELETE FROM product
             WHERE id IN (".$strProduct.")";
@@ -498,10 +505,11 @@ public function addProductTable($name,$sku,$price,$old_price,$description,$thumb
         $sql = "DELETE FROM category_product_xref
             WHERE category_id = $id";
         $this->_db->exec($sql);
+        }
 
-        ///удаляем категорию
+        ///удаляем категорию, если она не главная
         $sql = "DELETE FROM category
-            WHERE id = $id";
+            WHERE id = $id AND parent_id <> 0";
         $this->_db->exec($sql);
 
         /// нахдим дочерние категории и по рекурсии

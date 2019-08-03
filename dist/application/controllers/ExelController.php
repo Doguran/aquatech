@@ -9,8 +9,9 @@
 class ExelController implements IController {
 
     public $exelPath = 'exel'; //директория для распаковки файла exel
-    protected  $_mainCat = "";
-    protected  $_subCat = "";
+    protected  $_mainCat = ""; //имя главной категории
+    protected  $_subCat = ""; //имя субкатегории
+    protected  $_catId = "";
 
     public function __construct(){
         if(!ADMIN)
@@ -65,11 +66,17 @@ class ExelController implements IController {
                 $id = Helper::clearData($val);
                 list($rId,$imgDir) = explode("|", $id, 2);
                 $this->_mainCat = $sheet[$rId];
-                //удаляем все старые товары главной категории
-                $AdmindetailModel = new AdmindetailModel();
-                $AdmindetailModel->delAllProductInCat($sheet[$rId]);
 
-                exit;
+                //удаляем все старые товары главной и дочерних категорий и получаем id главной или false если нет
+                $AdmindetailModel = new AdmindetailModel();
+                $cat_id = $AdmindetailModel->delAllProductInCat($sheet[$rId]);
+
+                $AdmincatModel = new AdmincatModel();
+                if(!$cat_id){//если категории нет - создаем ее
+
+                    $cat_id = $AdmincatModel->addCat($sheet[$rId],0,0,null,null,$sheet[$rId],null,null,null);
+                }
+                $this->_catId = $cat_id;
 
                 $sheets = $XlsxparserController->parserXslxSheet($rId,$imgDir);
 
@@ -77,10 +84,16 @@ class ExelController implements IController {
                 foreach($sheets AS $v){
                         $product = array_filter($v,'strlen' );
                         if($product){//проверка на пустоту
-                            if(count($product) == 1){
+                            if(count($product) == 1){//создаем субкатегорию
                                 $this->_subCat = $product[0];
+                                $this->_catId = $AdmincatModel->addCat($product[0],$cat_id,$cat_id,null,null,$product[0],null,null,null);
                             }else{
+
+
                             Helper::print_arr($product);
+
+
+                                /// распихиваем товары
 
                             }
                     }
