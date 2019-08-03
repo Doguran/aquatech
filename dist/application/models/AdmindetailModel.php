@@ -476,9 +476,49 @@ public function addProductTable($name,$sku,$price,$old_price,$description,$thumb
     public function delAllProductInCat($catName){
         $CatModel = new CatModel();
         $cat_id = $CatModel->getCatIdByName($catName);
+        $this->_delCatAndProductForExel($cat_id);
+    }
+    private function _delCatAndProductForExel($cat_id){
+        /// удаляем все товары этой категории
+        /// выбираем из таблицы category_product_xref id товаров для удаления
+        $id   = $this->_db->quote($cat_id);
+        $sql = "SELECT product_id
+            FROM category_product_xref
+            WHERE category_id = $id";
+        $stmt = $this->_db->query($sql);
+        $arrProduct =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        /// удаляем товары
+        $strProduct = implode(",",array_map(function($a) {return $a['product_id'];},$arrProduct));
+        $sql = "DELETE FROM product
+            WHERE id IN (".$strProduct.")";
+        $this->_db->exec($sql);
+
+        /// удаляем связи из category_product_xref
+        $sql = "DELETE FROM category_product_xref
+            WHERE category_id = $id";
+        $this->_db->exec($sql);
+
+        ///удаляем категорию
+        $sql = "DELETE FROM category
+            WHERE id = $id";
+        $this->_db->exec($sql);
+
+        /// нахдим дочерние категории и по рекурсии
+        $sql = "SELECT id
+        FROM category
+            WHERE parent_id = $id";
+        $stmt = $this->_db->query($sql);
+        $arrCat =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if($arrCat) {
+            foreach ($arrCat AS $v){
+                $this->_delCatAndProductForExel($v['id']);
+            }
+        }
 
     }
+
+
     
     
 }

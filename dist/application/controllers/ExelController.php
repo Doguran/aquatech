@@ -69,6 +69,8 @@ class ExelController implements IController {
                 $AdmindetailModel = new AdmindetailModel();
                 $AdmindetailModel->delAllProductInCat($sheet[$rId]);
 
+                exit;
+
                 $sheets = $XlsxparserController->parserXslxSheet($rId,$imgDir);
 
 
