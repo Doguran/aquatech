@@ -12,6 +12,7 @@ class ExelController implements IController {
     protected  $_mainCat = ""; //имя главной категории
     protected  $_subCat = ""; //имя субкатегории
     protected  $_catId = "";
+    protected  $_log = "";
 
     public function __construct(){
         if(!ADMIN)
@@ -59,9 +60,12 @@ class ExelController implements IController {
 
 
     public function insertAction() {
+        $fc = FrontController::getInstance();
+        $model = new FileModel();
         if($_SERVER["REQUEST_METHOD"]=='POST'){
             $XlsxparserController = new XlsxparserController();
             $sheet = $XlsxparserController->parserXslxAllSheets();
+
             foreach ($_POST['id'] AS $val){
                 $id = Helper::clearData($val);
                 list($rId,$imgDir) = explode("|", $id, 2);
@@ -70,11 +74,17 @@ class ExelController implements IController {
                 //удаляем все старые товары главной и дочерних категорий и получаем id главной или false если нет
                 $AdmindetailModel = new AdmindetailModel();
                 $cat_id = $AdmindetailModel->delAllProductInCat($sheet[$rId]);
+                if($cat_id){
+                    $this->_log .= "<br><br>Категория ".$sheet[$rId]."<br>";
+                }
 
                 $AdmincatModel = new AdmincatModel();
                 if(!$cat_id){//если категории нет - создаем ее
 
                     $cat_id = $AdmincatModel->addCat($sheet[$rId],0,0,null,null,$sheet[$rId],null,null,null);
+                    if($cat_id){
+                        $this->_log .= "<br><br>Создана категория ".$sheet[$rId]."<br>";
+                    }
                 }
                 $this->_catId = $cat_id;
 
@@ -87,27 +97,37 @@ class ExelController implements IController {
                             if(count($product) == 1){//создаем субкатегорию
                                 $this->_subCat = $product[0];
                                 $this->_catId = $AdmincatModel->addCat($product[0],$cat_id,$cat_id,null,null,$product[0],null,null,null);
+                                if($this->_catId){
+                                    $this->_log .= "---- Создана подкатегория ".$product[0]."<br>";
+                                }
                             }else{
 
 
-                            Helper::print_arr($product);
-
+                            //Helper::print_arr($product);
 
                                 /// распихиваем товары
+                                /// [0] артикул
+                                /// [1} название
+                                /// [2] описание
+                                /// [3] фото
+                                /// [6] цена в евро (рекомендованная)
+                                $product_id = $AdmindetailModel->addProductOfExel($product[1],$product[0],$product[6],$product[2],$product[3],$product[1]);
+                                if(!is_array($product_id)){
+                                    $this->_log .= "Добавлен товар ".$product[1]."<br>";
+                                    $AdmindetailModel->insertProductCategory($product_id,$this->_catId);
+                                }else{
+                                    $this->_log .= "ОШИБКА ДОБАВЛЕНИЯ ТОВАРА ".$product[1]." - ".$product_id["msg"]."<br>";
+                                }
 
                             }
-                    }
+                        }
                 }
 
-                $sheets = (array_filter($sheets));
-
-
-
             }
-
-
-
         }
+        $model->log = $this->_log;
+        $output = $model->render("exel-log.tpl.php");
+        $fc->setBody($output);
 
     }
 

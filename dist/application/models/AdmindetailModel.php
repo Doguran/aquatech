@@ -470,6 +470,43 @@ public function addProductTable($name,$sku,$price,$old_price,$description,$thumb
                 
     }
 
+    public function addProductOfExel($name,$sku,$price,$description,$img,$title){
+
+
+
+        $name        = $this->_db->quote($name);
+        $sku         = $this->_db->quote($sku);
+        $price       = $this->_db->quote($price);
+        $description = $this->_db->quote($description);
+        $img   = $this->_db->quote($img);
+        $title       = $this->_db->quote($title);
+
+
+        $sql="INSERT INTO product (name,sku,price,shot_desc,full_img,title)
+             VALUES ($name,$sku,$price,$description,$img,$title)";
+        $resData["product"] = $name;
+        try{
+            $result = $this->_db->exec($sql);
+            $insertId = $this->_db->lastInsertId();
+        } catch (Exception $e){
+
+
+            $resData["msg"] = "Ошибка базы данных";
+            if($e->errorInfo[1] == 1062)
+                $resData["msg"] = "Такой артикул уже есть.";
+            return $resData;
+
+
+        }
+        if($result === false) {
+            $resData["msg"] = "Error";
+            return $resData;
+        }else{
+            return $insertId;
+        }
+
+    }
+
 
 
 

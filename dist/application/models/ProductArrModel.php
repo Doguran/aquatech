@@ -70,12 +70,8 @@ class ProductArrModel{
                         product.sku AS sku,
                         product.name AS name,
                         product.price AS price,
-                        product.old_price AS old_price,
                         product.shot_desc AS shot_desc,
-                        product.valuta AS valuta,
-                        product.thumb_img AS thumb_img,
                         product.full_img AS full_img,
-                        product.compare AS compare,
                         category.name AS cat_name,
                         category.predok AS predok
                 FROM product
@@ -85,7 +81,7 @@ class ProductArrModel{
         	       ON category.id = category_product_xref.category_id 
        
                 WHERE category.id = $cat_id
-                ORDER BY product.sort";
+                -- ORDER BY product.sort";
         $stmt = $this->_db->query($sql); 
         $productArr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         

@@ -29,9 +29,17 @@
                 <td><?php echo $val["sku"] ?></td>
                 <td><?php echo $val["shot_desc"] ?></td>
                 <td>
-                    <a data-fancybox="gallery1" href="<?php echo HTTP_PATH ?>images/product/<?php echo $val["full_img"] ?>">
-                        <img src="<?php echo HTTP_PATH ?>images/product/<?php echo $val["thumb_img"] ?>" class="img-fluid" alt="<?php echo $val["name"] ?>">
-                    </a>
+                    <?php if($val["full_img"]) : ?>
+                    <?php $imgArr = unserialize($val["full_img"]); ?>
+                    <?php foreach ($imgArr AS $v) :?>
+                            <a data-fancybox="gallery1" href="<?php echo HTTP_PATH ?>imgProduct/<?php echo Helper::getChpu($this->cat_name)."/".$v["img"] ?>">
+                                <img src="<?php echo HTTP_PATH ?>imgProduct/<?php echo Helper::getChpu($this->cat_name)."/".$v["img"] ?>" class="img-fluid" alt="<?php echo $val["name"] ?>">
+                            </a>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+<!--                    <a data-fancybox="gallery1" href="--><?php //echo HTTP_PATH ?><!--images/product/--><?php //echo $val["full_img"] ?><!--">-->
+<!--                        <img src="--><?php //echo HTTP_PATH ?><!--images/product/--><?php //echo $val["thumb_img"] ?><!--" class="img-fluid" alt="--><?php //echo $val["name"] ?><!--">-->
+<!--                    </a>-->
                 </td>
 
                 <?php if ($val["price"] == "0"
