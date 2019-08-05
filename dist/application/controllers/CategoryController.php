@@ -40,7 +40,7 @@ class CategoryController implements IController {
         }
     }
 
-    private function _drawTable($cat_id, $cat_name){
+    private function _drawTable($cat_id, $cat_name, $main_cat_name){
 
         $ProductObj = new ProductArrModel();
         //достаем товары
@@ -50,6 +50,7 @@ class CategoryController implements IController {
             //рисуем таблицу
             $model = new FileModel();
             $model->cat_name = $cat_name;
+            $model->main_cat_name = $main_cat_name;
             $model->contentArr = $ProductArr;
             $model->cat_id = $cat_id;
             $this->_output .= $model->render(TABLE_PRODUCT);
@@ -62,7 +63,7 @@ class CategoryController implements IController {
         if ($SubCatArr) {
 
             foreach($SubCatArr as $val){
-                $this->_drawTable($val["id"],$val["name"]);
+                $this->_drawTable($val["id"],$val["name"], $cat_name);
             }
         }
 
@@ -73,7 +74,7 @@ class CategoryController implements IController {
     public function showIndex($cat_id){
         $CatModel = new CatModel();
         $cat_name = $CatModel->getCatName($cat_id);
-        $this->_drawTable($cat_id, $cat_name["name"]);
+        $this->_drawTable($cat_id, $cat_name["name"], $cat_name["name"]);
         return $this->_output;
     }
 
@@ -97,7 +98,7 @@ class CategoryController implements IController {
 
 
         //достаем товары этой категории - главной категории и присоединяем
-            $this->_drawTable($cat_id, $cat_name["name"]);
+            $this->_drawTable($cat_id, $cat_name["name"], $cat_name["name"]);
 
 
         $model = new FileModel();
