@@ -173,7 +173,7 @@ class CatModel{
 
         $sql = "SELECT id,parent_id,predok,name,img
                 FROM category
-                ORDER BY sort";
+                -- ORDER BY sort";
         $stmt = $this->_db->query($sql);
         $this->_myCat = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

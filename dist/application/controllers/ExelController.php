@@ -95,10 +95,11 @@ class ExelController implements IController {
                         $product = array_filter($v,'strlen' );
                         if($product){//проверка на пустоту
                             if(count($product) == 1){//создаем субкатегорию
-                                $this->_subCat = $product[0];
-                                $this->_catId = $AdmincatModel->addCat($product[0],$cat_id,$cat_id,null,null,$product[0],null,null,null);
+
+                                $this->_subCat =  array_shift($product);
+                                $this->_catId = $AdmincatModel->addCat($this->_subCat,$cat_id,$cat_id,null,null,$this->_subCat,null,null,null);
                                 if($this->_catId){
-                                    $this->_log .= "&nbsp;&nbsp;Создана подкатегория ".$product[0]."<br>";
+                                    $this->_log .= "&nbsp;&nbsp;Создана подкатегория ".$this->_subCat."<br>";
                                 }
                             }else{
 
