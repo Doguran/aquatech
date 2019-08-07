@@ -30,12 +30,14 @@
                 <td><?php echo $val["shot_desc"] ?></td>
                 <td>
                     <?php if($val["full_img"]) : ?>
-                    <?php $imgArr = unserialize($val["full_img"]); $img_dir = Helper::getChpu($this->main_cat_name); ?>
+                    <?php $imgArr = json_decode($val["full_img"],true); $img_dir = Helper::getChpu($this->main_cat_name); ?>
+                    <?php if(is_array($imgArr)) : ?>
                     <?php foreach ($imgArr['img'] AS $v) :?>
                             <a data-fancybox="gallery1" href="<?php echo HTTP_PATH ?>imgProduct/<?php echo $img_dir."/".$v; ?>">
                                 <img src="<?php echo HTTP_PATH ?>imgProduct/<?php echo $img_dir."/".$v; ?>" class="img-fluid" alt="<?php echo $val["name"] ?>">
                             </a>
                     <?php endforeach; ?>
+                    <?php endif; ?>
                     <?php endif; ?>
                 </td>
 

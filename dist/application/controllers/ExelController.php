@@ -98,12 +98,12 @@ class ExelController implements IController {
                                 $this->_subCat = $product[0];
                                 $this->_catId = $AdmincatModel->addCat($product[0],$cat_id,$cat_id,null,null,$product[0],null,null,null);
                                 if($this->_catId){
-                                    $this->_log .= "---- Создана подкатегория ".$product[0]."<br>";
+                                    $this->_log .= "&nbsp;&nbsp;Создана подкатегория ".$product[0]."<br>";
                                 }
                             }else{
 
-
-                            //Helper::print_arr($product);
+//                                header('Content-Type: text/html; charset=utf-8');
+//                            Helper::print_arr($product);
 
                                 /// распихиваем товары
                                 /// [0] артикул
@@ -111,12 +111,18 @@ class ExelController implements IController {
                                 /// [2] описание
                                 /// [3] фото
                                 /// [6] цена в евро (рекомендованная)
+                                $product[0] = isset($product[0]) ? $product[0] : null;
+                                $product[1] = isset($product[1]) ? $product[1] : null;
+                                $product[2] = isset($product[2]) ? $product[2] : null;
+                                $product[3] = isset($product[3]) ? $product[3] : null;
+                                $product[6] = isset($product[6]) ? $product[6] : null;
+
                                 $product_id = $AdmindetailModel->addProductOfExel($product[1],$product[0],$product[6],$product[2],$product[3],$product[1]);
                                 if(!is_array($product_id)){
-                                    $this->_log .= "Добавлен товар ".$product[1]."<br>";
+                                    $this->_log .= "&nbsp;&nbsp;&nbsp;&nbsp;Добавлен товар ".$product[1]."<br>";
                                     $AdmindetailModel->insertProductCategory($product_id,$this->_catId);
                                 }else{
-                                    $this->_log .= "ОШИБКА ДОБАВЛЕНИЯ ТОВАРА ".$product[1]." - ".$product_id["msg"]."<br>";
+                                    $this->_log .= "&nbsp;&nbsp;&nbsp;&nbsp;ОШИБКА ДОБАВЛЕНИЯ ТОВАРА: арт. ".$product[0]." - ".$product[1]." - ".$product_id["msg"]."<br>";
                                 }
 
                             }

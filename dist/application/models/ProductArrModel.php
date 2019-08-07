@@ -85,7 +85,7 @@ class ProductArrModel{
         $stmt = $this->_db->query($sql); 
         $productArr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        //$productArr = Helper::exchange($productArr);
+        $productArr = Helper::exchange($productArr);
         
 //        $prices = array();//собираем прайс
 //        foreach($productArr as $v){

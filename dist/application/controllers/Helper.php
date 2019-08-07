@@ -418,6 +418,14 @@ public static function create_small_copy($file_name, $width, $height, $category_
         }
         return false;
     }
+
+    //конвертация валют EVRO
+    public static function exchange($arr){
+        foreach ($arr as &$v){
+            $v["price"] =  round($v["price"]*EVRO, -1);
+        }
+        return $arr;
+    }
     
 }
 

@@ -4,6 +4,11 @@ define("DB_CONN","mysql:host=localhost;dbname=aquatehnica;charset=utf8");
 define("DB_USER","root");
 define("DB_PASS","");
 
+//устанавливаем курсы валют
+$valuta_arr = file("valuta.data",FILE_IGNORE_NEW_LINES);
+define("DOLLAR",$valuta_arr[0]);
+define("EVRO",$valuta_arr[1]);
+
 define("COURIER_PRISE",500);// стоимость доставки курьером
 
 define('SMTP_HOST', 'mail.supermoika.ru');

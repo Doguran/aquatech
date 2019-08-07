@@ -196,7 +196,7 @@ class XlsxparserController implements IController {
         //собираем итоговый массив
         foreach ($out as $key => &$val) {
             if (isset($imgArr[$key])) {
-                $val[$this->_cell_img] = serialize($imgArr[$key]);
+                $val[$this->_cell_img] = json_encode($imgArr[$key]);
             }
         }
         unset($val, $imgArr);
