@@ -90,45 +90,48 @@ class ExelController implements IController {
 
                 $sheets = $XlsxparserController->parserXslxSheet($rId,$imgDir);
 
+                $this->_log .= $AdmincatModel->addOfExel($sheets,$cat_id);
 
-                foreach($sheets AS $v){
-                        $product = array_filter($v,'strlen' );
-                        if($product){//проверка на пустоту
-                            if(count($product) == 1){//создаем субкатегорию
 
-                                $this->_subCat =  array_shift($product);
-                                $this->_catId = $AdmincatModel->addCat($this->_subCat,$cat_id,$cat_id,null,null,$this->_subCat,null,null,null);
-                                if($this->_catId){
-                                    $this->_log .= "&nbsp;&nbsp;Создана подкатегория ".$this->_subCat."<br>";
-                                }
-                            }else{
 
-//                                header('Content-Type: text/html; charset=utf-8');
-//                            Helper::print_arr($product);
-
-                                /// распихиваем товары
-                                /// [0] артикул
-                                /// [1} название
-                                /// [2] описание
-                                /// [3] фото
-                                /// [6] цена в евро (рекомендованная)
-                                $product[0] = isset($product[0]) ? $product[0] : null;
-                                $product[1] = isset($product[1]) ? $product[1] : null;
-                                $product[2] = isset($product[2]) ? $product[2] : null;
-                                $product[3] = isset($product[3]) ? $product[3] : null;
-                                $product[6] = isset($product[6]) ? $product[6] : null;
-
-                                $product_id = $AdmindetailModel->addProductOfExel($product[1],$product[0],$product[6],$product[2],$product[3],$product[1]);
-                                if(!is_array($product_id)){
-                                    $this->_log .= "&nbsp;&nbsp;&nbsp;&nbsp;Добавлен товар ".$product[1]."<br>";
-                                    $AdmindetailModel->insertProductCategory($product_id,$this->_catId);
-                                }else{
-                                    $this->_log .= "&nbsp;&nbsp;&nbsp;&nbsp;ОШИБКА ДОБАВЛЕНИЯ ТОВАРА: арт. ".$product[0]." - ".$product[1]." - ".$product_id["msg"]."<br>";
-                                }
-
-                            }
-                        }
-                }
+//                foreach($sheets AS $v){
+//                        $product = array_filter($v,'strlen' );
+//                        if($product){//проверка на пустоту
+//                            if(count($product) == 1){//создаем субкатегорию
+//
+//                                $this->_subCat =  array_shift($product);
+//                                $this->_catId = $AdmincatModel->addCat($this->_subCat,$cat_id,$cat_id,null,null,$this->_subCat,null,null,null);
+//                                if($this->_catId){
+//                                    $this->_log .= "&nbsp;&nbsp;Создана подкатегория ".$this->_subCat."<br>";
+//                                }
+//                            }else{
+//
+////                                header('Content-Type: text/html; charset=utf-8');
+////                            Helper::print_arr($product);
+//
+//                                /// распихиваем товары
+//                                /// [0] артикул
+//                                /// [1} название
+//                                /// [2] описание
+//                                /// [3] фото
+//                                /// [6] цена в евро (рекомендованная)
+//                                $product[0] = isset($product[0]) ? $product[0] : null;
+//                                $product[1] = isset($product[1]) ? $product[1] : null;
+//                                $product[2] = isset($product[2]) ? $product[2] : null;
+//                                $product[3] = isset($product[3]) ? $product[3] : null;
+//                                $product[6] = isset($product[6]) ? $product[6] : null;
+//
+//                                $product_id = $AdmindetailModel->addProductOfExel($product[1],$product[0],$product[6],$product[2],$product[3],$product[1]);
+//                                if(!is_array($product_id)){
+//                                    $this->_log .= "&nbsp;&nbsp;&nbsp;&nbsp;Добавлен товар ".$product[1]."<br>";
+//                                    $AdmindetailModel->insertProductCategory($product_id,$this->_catId);
+//                                }else{
+//                                    $this->_log .= "&nbsp;&nbsp;&nbsp;&nbsp;ОШИБКА ДОБАВЛЕНИЯ ТОВАРА: арт. ".$product[0]." - ".$product[1]." - ".$product_id["msg"]."<br>";
+//                                }
+//
+//                            }
+//                        }
+//                }
 
             }
         }

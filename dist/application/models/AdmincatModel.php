@@ -283,6 +283,80 @@ public function updateMainSort($sort,$id){
             $stmt->execute(array($cat_id,$v));
         }
     }
+
+    public function addOfExel($sheets,$cat_id){
+        $log = "";
+        $countProduct= 0;
+        $countProductError= 0;
+        $addCatStmt = $this->_db->prepare('INSERT INTO category (parent_id,predok,name,before_text,after_text,title,keywords,seo_desc,img)
+                VALUES (?,?,?,?,?,?,?,?,?)');
+        $addProductStmt = $this->_db->prepare('INSERT INTO product (name,sku,price,shot_desc,full_img,title)
+             VALUES (?,?,?,?,?,?)');
+        $addProductCategoryStmt = $this->_db->prepare('INSERT INTO category_product_xref (category_id,product_id)
+            VALUES (?,?)');
+        foreach($sheets AS $v){
+            $product = array_filter($v,'strlen' );
+            if($product){//проверка на пустоту
+                if(count($product) == 1){//создаем субкатегорию
+
+                    $subCatName =  array_shift($product);
+                    $addCatStmt->execute(array($cat_id,$cat_id,$subCatName,null,null,$subCatName,null,null,null));
+                    $cat_id = $this->_db->lastInsertId();
+                    if($cat_id){
+                        $log .= "&nbsp;&nbsp;Создана подкатегория ".$subCatName."<br>";
+                    }
+                }else{
+
+                    //header('Content-Type: text/html; charset=utf-8');
+                    //Helper::print_arr($product);
+
+                    /// распихиваем товары
+                    /// [0] артикул
+                    /// [1} название
+                    /// [2] описание
+                    /// [3] фото
+                    /// [6] цена в евро (рекомендованная)
+                    $product[0] = isset($product[0]) ? $product[0] : null;
+                    $product[1] = isset($product[1]) ? $product[1] : null;
+                    $product[2] = isset($product[2]) ? $product[2] : null;
+                    $product[3] = isset($product[3]) ? $product[3] : null;
+                    $product[6] = isset($product[6]) ? $product[6] : 0;
+                    try {
+                        $addProductStmt->execute([
+                          $product[1],
+                          $product[0],
+                          $product[6],
+                          $product[2],
+                          $product[3],
+                          $product[1]
+                        ]);
+                        $log .= "&nbsp;&nbsp;&nbsp;&nbsp;Добавлен товар ".$product[1]."<br>";
+                        $countProduct ++;
+                    }catch (Exception $e){
+                        $log .= "&nbsp;&nbsp;&nbsp;&nbsp;ОШИБКА ПРИ ДОБАВЛЕНИЯ ТОВАРА: арт. ".$product[0]." - ".$product[1]." ".$e->getMessage();
+                        if($e->errorInfo[1] == 1062)
+                            $log .= " - такой артикул уже есть.";
+                        $log .= "<br>";
+                        $countProductError ++;
+                    }
+                    try{
+                        $product_id = $this->_db->lastInsertId();
+                    }catch (Exception $e) {
+                        $log .= $e->getMessage()." Ошибка lastInsertId<br>";
+                    }
+                    try{
+                        $addProductCategoryStmt->execute(array($cat_id,$product_id));
+                    }catch (Exception $e){
+                        $log .= $e->getMessage()." Ошибка lastInsertId<br>";
+                    }
+
+                }
+            }
+        }
+        $log .= "<br>ДОБАВЛЕНО ТОВАРОВ В КАТЕГОРИЮ: ".$countProduct."<br>";
+        $log .= "ОШИБОК ДОБАВЛЕНИЯ: ".$countProductError."<br>";
+        return $log;
+    }
     
     
     

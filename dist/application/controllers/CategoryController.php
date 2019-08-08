@@ -63,7 +63,7 @@ class CategoryController implements IController {
         if ($SubCatArr) {
 
             foreach($SubCatArr as $val){
-                $this->_drawTable($val["id"],$val["name"], $cat_name);
+                $this->_drawTable($val["id"],$val["name"], $main_cat_name);
             }
         }
 
