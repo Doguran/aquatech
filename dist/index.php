@@ -4,6 +4,12 @@ define("DB_CONN","mysql:host=localhost;dbname=aquatehnica;charset=utf8");
 define("DB_USER","root");
 define("DB_PASS","");
 
+//define("DB_CONN","mysql:host=91.224.23.222;dbname=aquatecnica;charset=utf8");
+//define("DB_USER","aquatecnica");
+//define("DB_PASS","N1f5N8q9");
+
+//header('Content-Type: text/html; charset=utf-8');
+
 //устанавливаем курсы валют
 $valuta_arr = file("valuta.data",FILE_IGNORE_NEW_LINES);
 define("DOLLAR",$valuta_arr[0]);
