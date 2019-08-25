@@ -145,33 +145,11 @@
                                 <td><input class="form-control" type="text" value="<?php echo $this->sku; ?>" name="sku" id="sku"></td>
                             </tr>
                             <tr>
-                                <td>Цена: </td>
+                                <td>Цена в евро: </td>
                                 <td><input class="form-control" type="text" value="<?php echo $this->price; ?>" name="price"></td>
                             </tr>
-                            <tr>
-                                <td>Старая цена: <br /><small>указывется, если товар в акции</small></td>
-                                <td><input class="form-control" type="text" value="<?php echo $this->old_price; ?>" name="old_price"></td>
-                            </tr>
-                            <tr>
-                                <td>Валюта:</td>
-                                <td>
-                                    <div class="custom-control custom-radio">
-                                        <?php $checked = $this->valuta == "R" ? " checked" : ""; ?>
-                                        <input type="radio" name="valuta"  id="customRadio1" value="R" class="custom-control-input" data-toggle="radio"<?php echo $checked ?>>
-                                        <label class="custom-control-label" for="customRadio1">Рубль</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                        <?php $checked = $this->valuta == "E" ? " checked" : ""; ?>
-                                        <input type="radio" name="valuta"  id="customRadio2" value="E" class="custom-control-input" data-toggle="radio"<?php echo $checked ?>>
-                                        <label class="custom-control-label" for="customRadio2">Евро</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                        <?php $checked = $this->valuta == "D" ? " checked" : ""; ?>
-                                        <input type="radio" name="valuta"  id="customRadio3" value="D" class="custom-control-input" data-toggle="radio"<?php echo $checked ?>>
-                                        <label class="custom-control-label" for="customRadio3">Доллар</label>
-                                    </div>
-                                </td>
-                            </tr>
+
+
                             <tr>
                                 <td></td>
                                 <td><img src="/images/product/<?php echo $this->thumb_img; ?>" alt=""></td>
@@ -194,11 +172,7 @@
                         <br /><br />
                         <textarea id="editor1" class="form-control" name="description"><?php echo $this->description; ?></textarea><br />
 
-                        Комлектация (через запятую):
-                        <input class="form-control input-sm w-50" type="text" value="<?php echo $this->complete; ?>" name="complete" id="complete"> <br />
-                        <div class="clearfix"></div>
 
-                        <br />
                     </div>
                     <div id="tabs-3" class="tab-pane fade">
                         <br />
@@ -207,7 +181,6 @@
                         Description: <br /><textarea class="form-control" name="seo_desc"><?php echo $this->seo_desc; ?></textarea><br /><br />
                         <input type="hidden" value="<?php echo $this->cat_id; ?>" name='cat_id'>
                         <input type="hidden" value="<?php echo $this->id; ?>" name='product_id'>
-                        <input type="hidden" name="thumb_img" value="<?php echo $this->thumb_img ?>"/>
                         <input type="hidden" name="full_img" value="<?php echo $this->full_img ?>"/>
                     </div>
 

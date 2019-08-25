@@ -430,7 +430,7 @@ public function deleteProduct($product_id){
 }
 
 
-public function addProductTable($name,$sku,$price,$old_price,$description,$thumb_img,$full_img,$title,$keywords,$seo_desc,$complete){
+public function addProductTable($name,$sku,$price,$description,$full_img,$title,$keywords,$seo_desc){
         
 
        
@@ -438,16 +438,15 @@ public function addProductTable($name,$sku,$price,$old_price,$description,$thumb
        $sku         = $this->_db->quote($sku);
        $price       = $this->_db->quote($price);
        $description = $this->_db->quote($description);
-       $thumb_img   = $this->_db->quote($thumb_img);
        $full_img    = $this->_db->quote($full_img);
        $title       = $this->_db->quote($title);
        $keywords    = $this->_db->quote($keywords);
        $seo_desc    = $this->_db->quote($seo_desc);
-	   $complete    = $this->_db->quote($complete);
+
 
        
-       $sql="INSERT INTO product (name,sku,price,old_price,shot_desc,thumb_img,full_img,title,keywords,seo_desc,complete)
-             VALUES ($name,$sku,$price,$old_price,$description,$thumb_img,$full_img,$title,$keywords,$seo_desc,$complete)";
+       $sql="INSERT INTO product (name,sku,price,shot_desc,full_img,title,keywords,seo_desc)
+             VALUES ($name,$sku,$price,$description,$full_img,$title,$keywords,$seo_desc)";
         try{      
         $result = $this->_db->exec($sql); 
         $insertId = $this->_db->lastInsertId();

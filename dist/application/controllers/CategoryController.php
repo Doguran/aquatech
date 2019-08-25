@@ -60,6 +60,7 @@ class CategoryController implements IController {
 
         //достаем субкатегории
         $SubCatArr = $ProductObj->getSubCat($cat_id);
+
         if ($SubCatArr) {
 
             foreach($SubCatArr as $val){

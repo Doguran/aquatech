@@ -294,6 +294,7 @@ public function updateMainSort($sort,$id){
              VALUES (?,?,?,?,?,?)');
         $addProductCategoryStmt = $this->_db->prepare('INSERT INTO category_product_xref (category_id,product_id)
             VALUES (?,?)');
+        //$catid = $cat_id;
         foreach($sheets AS $v){
             $product = array_filter($v,'strlen' );
             if($product){//проверка на пустоту
@@ -301,8 +302,8 @@ public function updateMainSort($sort,$id){
 
                     $subCatName =  array_shift($product);
                     $addCatStmt->execute(array($cat_id,$cat_id,$subCatName,null,null,$subCatName,null,null,null));
-                    $cat_id = $this->_db->lastInsertId();
-                    if($cat_id){
+                    $catid = $this->_db->lastInsertId();
+                    if($catid){
                         $log .= "&nbsp;&nbsp;Создана подкатегория ".$subCatName."<br>";
                     }
                 }else{
@@ -345,7 +346,7 @@ public function updateMainSort($sort,$id){
                         $log .= $e->getMessage()." Ошибка lastInsertId<br>";
                     }
                     try{
-                        $addProductCategoryStmt->execute(array($cat_id,$product_id));
+                        $addProductCategoryStmt->execute(array($catid,$product_id));
                     }catch (Exception $e){
                         $log .= $e->getMessage()." Ошибка lastInsertId<br>";
                     }
