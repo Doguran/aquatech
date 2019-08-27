@@ -152,7 +152,18 @@
 
                             <tr>
                                 <td></td>
-                                <td><img src="/images/product/<?php echo $this->thumb_img; ?>" alt=""></td>
+                                <td>
+                                    <?php if($this->full_img) : ?>
+                                        <?php $imgArr = json_decode($this->full_img,true);?>
+                                        <?php if(is_array($imgArr)) : ?>
+                                            <?php foreach ($imgArr['img'] AS $v) :?>
+
+                                                    <img src="<?php echo HTTP_PATH ?>imgProduct/<?php echo $this->img_dir_name."/".$v; ?>" class="img-fluid" alt="<?php $this->name; ?>">
+
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Изображение:</td>

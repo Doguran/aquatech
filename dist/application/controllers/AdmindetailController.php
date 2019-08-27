@@ -43,49 +43,29 @@ class AdmindetailController implements IController {
         $model->name = $product["name"];
         $model->sku = $product["sku"];
         $model->price = $product["price"];
-        $model->old_price = $product["old_price"]>0 ? $product["old_price"] : "";
+        //$model->old_price = $product["old_price"]>0 ? $product["old_price"] : "";
         $model->description = $product["shot_desc"];
-        $model->thumb_img = $product["thumb_img"];
+        //$model->thumb_img = $product["thumb_img"];
         $model->full_img = $product["full_img"];
         $model->cat_id = $product["cat_id"];
         //$model->compare = $product["compare"];
         $model->title = $product["title"];
         $model->keywords = $product["keywords"];
         $model->seo_desc = $product["seo_desc"];
-        //$model->new  = $product["new"] ? " checked" : "";
-        //$model->liders  = $product["liders"] ? " checked" : "";
-        //$model->sale  = $product["sale"] ? " checked" : "";
-        $model->complete  = $product["complete"];
-        //$model->model  = $product["model"];
-        //$model->yandex_cat  = $product["yandex_cat"];
-        //$model->garant  = $product["garant"];
-        //$model->valuta  = $product["valuta"];
-        //$model->promo  = $product["promo"];
+
         $model->action  = "edit";
-        
-        
+
+        $predok = $catModel->getPredok($product["cat_id"]);
+        $arrayName = $catModel->getCatName($predok);
+        $model->img_dir_name = Helper::getChpu($arrayName["name"]);
+        $model->predok_cat_id = $predok;
+
         //$ProductArrModel = new ProductArrModel();
         //$model->allProduct =$ProductArrModel->getAllProduct();
         
         //$model->sel_buy_together = $AdmindetailModel->getBuyTogether($product_id);
 
-        //валютные махинации
-        $ValuteModel = new ValuteModel();
-        $valuteArr = $ValuteModel->viewValuta($product_id);
-        if($valuteArr){
-            if($valuteArr["evro"] > 0){
-                $model->price = $valuteArr["evro"];
-                $model->old_price = $valuteArr["old_evro"]>0 ? $valuteArr["old_evro"] : "";
-                $model->valuta = "E";
 
-            }else{
-                $model->price = $valuteArr["dollar"];
-                $model->old_price = $valuteArr["old_dollar"]>0 ? $valuteArr["old_dollar"] : "";
-                $model->valuta = "D";
-            }
-        }else{
-            $model->valuta = "R";
-        }
         
         $model->cartAll = CartController::countCart();
         $model->findtoCart = CartController::findtoCart($product["id"]);
@@ -221,7 +201,6 @@ class AdmindetailController implements IController {
                   }
 
                     $CatModel = new CatModel();
-                    $predok_cat_id = $CatModel->getPredok($new_cat_id);
                   
                   
 //                  $AdmindetailModel->delBuyTogether($product_id);
@@ -231,7 +210,7 @@ class AdmindetailController implements IController {
                       
                 $resData["success"] = 1;
                 $resData["cat"] = $new_cat_id;
-                $resData["predok"] = $predok_cat_id["predok"];
+                $resData["predok"] = $CatModel->getPredok($new_cat_id);;
                    
                                       
                 }catch(Exception $e){
@@ -270,7 +249,7 @@ class AdmindetailController implements IController {
         $cat_id = abs((int)$params["cat"]);
         $CatModel = new CatModel();
         $predok_cat_id = $CatModel->getPredok($cat_id);
-        header("Location: /category/show/id/$predok_cat_id[predok]/#table$cat_id");
+        header("Location: /category/show/id/$predok_cat_id/#table$cat_id");
         $AdmindetailModel = new AdmindetailModel();
         $AdmindetailModel->deleteProduct($product_id);
         
@@ -299,7 +278,7 @@ class AdmindetailController implements IController {
         $model->old_price = null;
         $model->description = null;
         $model->thumb_img = "sm_default.jpg";
-        $model->full_img = "default.jpg";
+        $model->full_img = false;
         $model->title = null;
         $model->keywords = null;
         $model->seo_desc = null;
@@ -308,6 +287,8 @@ class AdmindetailController implements IController {
         $model->action  = "insert";
         $model->id = null;
         $model->cat_id = null;
+        $model->img_dir_name = null;
+        $model->predok_cat_id = null;
 
 //        $textModel = new TextModel();
 //        $model->contact = $textModel->getContact();
@@ -345,8 +326,8 @@ class AdmindetailController implements IController {
             if(empty($error)){//если ошибок нет
                 try{
                     $CatModel = new CatModel();
-                    $arrayPredok = $CatModel->getPredok($new_cat_id);
-                    $arrayName = $CatModel->getCatName($arrayPredok["predok"]);
+                    $predok = $CatModel->getPredok($new_cat_id);
+                    $arrayName = $CatModel->getCatName($predok);
                     $dirName = Helper::getChpu($arrayName["name"]);
                     if ($_FILES['photo']['size']>0){
                         //если есть новая фотка
@@ -368,9 +349,6 @@ class AdmindetailController implements IController {
                     $AdmindetailModel->insertProductCategory($product_id,$new_cat_id);
 
 
-                    $predok_cat_id = $CatModel->getPredok($new_cat_id);
-
-
 
 //                    if($parametrs){
 //                        foreach ($parametrs as $k=>$v) {
@@ -384,7 +362,7 @@ class AdmindetailController implements IController {
                     $resData["success"] = 1;
                     $resData["id"] = $product_id;
                     $resData["cat"] = $new_cat_id;
-                    $resData["predok"] = $predok_cat_id["predok"];
+                    $resData["predok"] = $predok;
 
                 }catch(Exception $e){
                     $resData["success"] = 0;

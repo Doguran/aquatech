@@ -20,26 +20,11 @@ class ProductModel{
                 product.name AS name,
                 product.sku AS sku,
                 product.price AS price,
-                product.old_price AS old_price,
                 product.shot_desc AS shot_desc,
-                product.description AS description,
-                product.thumb_img AS thumb_img,
                 product.full_img AS full_img,
-                /*product.compare AS compare,*/
                 product.title AS title,
                 product.keywords AS keywords,
-                product.seo_desc AS seo_desc,
-                /*product.new AS new,
-                product.liders AS liders,
-                product.sale AS sale,*/
-                product.complete AS complete,
-                /*product.model AS model,
-                product.yandex_cat AS yandex_cat,
-                product.garant AS garant,
-                product.vote AS vote,
-                product.voters AS voters,*/
-                product.valuta AS valuta
-              
+                product.seo_desc AS seo_desc
                 FROM product
                 INNER JOIN category_product_xref
         	       ON product.id = category_product_xref.product_id

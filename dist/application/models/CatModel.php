@@ -209,12 +209,13 @@ class CatModel{
     }
 
     public function getPredok($cat_id){
-        $cat_id  = $this->_db->quote($cat_id);
+        $id  = $this->_db->quote($cat_id);
         $sql = "SELECT predok
                 FROM category
-                WHERE id = $cat_id";
+                WHERE id = $id";
         $stmt = $this->_db->query($sql);
-        return  $stmt->fetch(PDO::FETCH_ASSOC);
+        $predok = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $predok["predok"] ? $predok["predok"] : $cat_id;
     }
 
     public function getCategories() {
