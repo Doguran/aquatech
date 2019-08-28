@@ -39,19 +39,30 @@ class AdmindetailController implements IController {
         //$model->catOption = $catModel->getCatOption($product["cat_id"]);
         $model->catOption = $catModel->getCatOption($product["cat_id"]);
 
-            $model->id = $product["id"];
+        $model->id = $product["id"];
         $model->name = $product["name"];
         $model->sku = $product["sku"];
         $model->price = $product["price"];
         //$model->old_price = $product["old_price"]>0 ? $product["old_price"] : "";
         $model->description = $product["shot_desc"];
         //$model->thumb_img = $product["thumb_img"];
-        $model->full_img = $product["full_img"];
+        //$model->full_img = $product["full_img"];
         $model->cat_id = $product["cat_id"];
         //$model->compare = $product["compare"];
         $model->title = $product["title"];
         $model->keywords = $product["keywords"];
         $model->seo_desc = $product["seo_desc"];
+
+
+
+        if($product["full_img"]){
+            $imgArr = json_decode($product["full_img"], true);;
+            $model->full_img = implode(",",$imgArr["img"]);
+        }else{
+            $model->full_img = false;
+        }
+
+
 
         $model->action  = "edit";
 
@@ -84,7 +95,7 @@ class AdmindetailController implements IController {
 	}
     
     public function editAction() {
-        //Helper::print_arr($_POST);
+        //Helper::print_arr($_POST); exit;
         $resData = array();
                 
         if($_SERVER["REQUEST_METHOD"]=='POST'){
@@ -93,10 +104,7 @@ class AdmindetailController implements IController {
             $name        = Helper::clearData($_POST['name']);
             $sku         = Helper::clearData($_POST['sku']);
             $price       = Helper::clearData($_POST['price'],"i");
-            $old_price   = Helper::clearData($_POST['old_price'],"i");
             $description = Helper::clearData($_POST['description'],"html");
-            //$promo       = Helper::clearData($_POST['promo'],"html");
-            $thumb_img   = Helper::clearData($_POST['thumb_img']);
             $full_img    = Helper::clearData($_POST['full_img']);
             $old_cat_id  = Helper::clearData($_POST['cat_id'],"i");
             $new_cat_id  = Helper::clearData($_POST['new_cat_id'],"i");
@@ -104,12 +112,10 @@ class AdmindetailController implements IController {
             $title       = Helper::clearData($_POST['title']);
             $keywords    = Helper::clearData($_POST['keywords']);
             $seo_desc    = Helper::clearData($_POST['seo_desc']);
-            $complete    = Helper::clearData($_POST['complete']);
-            //$model       = Helper::clearData($_POST['model']);
-            //$yandex_cat  = Helper::clearData($_POST['yandex_cat']);
-            //$garant      = Helper::clearData($_POST['garant']);
-            $valuta      = Helper::clearData($_POST['valuta']);
-            if($title == "") $title = $name;
+            $dirName     = Helper::clearData($_POST['img_dir_name']);
+            $predok     = Helper::clearData($_POST['predok_cat_id']);
+
+             if($title == "") $title = $name;
 
 
             
@@ -122,95 +128,38 @@ class AdmindetailController implements IController {
             if(!$product_id) $error[] = "Ошибка product_id";
             
             if(empty($error)){//если ошибок нет
-                try{ 
-                
-                  if ($_FILES['photo']['size']>0){
+                try{
+
+                    if($full_img){
+                        $imgArr = explode(",",$full_img);
+                        $new_full_img  = json_encode(array("img" => $imgArr));
+                    }
+                    if ($_FILES['photo']['size']>0){
                         //если есть новая фотка
-                    $new_full_img =  Helper::uploadimg("images/product/");
-                    if(!$new_full_img){throw new Exception('Ошибка загрузки изображения. Возможно файл слишком большой'); }
-                    $new_thumb_img = Helper::create_small_copy($new_full_img,150,150,"images/product/","sm_" ) ? "sm_".$new_full_img : "sm_default.jpg";
-                    }else{
-                        $new_thumb_img = $thumb_img;
-                        $new_full_img  = $full_img;
+                        $new_full_img =  Helper::uploadimg("imgProduct".DIRECTORY_SEPARATOR.$dirName.DIRECTORY_SEPARATOR);
+                        if(!$new_full_img){throw new Exception('Ошибка загрузки изображения. Возможно файл слишком большой'); }
+                        if(isset($imgArr) AND is_array($imgArr)){
+                            foreach ($imgArr AS $value){
+                                @unlink("imgProduct".DIRECTORY_SEPARATOR.$dirName.DIRECTORY_SEPARATOR.$value);
+                            }
+                        }
+                        $new_full_img =  json_encode(array("img" => array($new_full_img)));
                     }
                     
                   $AdmindetailModel = new AdmindetailModel();
-                  //$AdmindetailModel->getMainPage($product_id,$main_page);
 
-                  //$AdmindetailModel->deleteProductParams($product_id);//удаляем параметры в любом случае!
                     
                   if($old_cat_id != $new_cat_id){//если категорию надо сменить
                     $AdmindetailModel->updateProductCategory($product_id,$new_cat_id);
 
-//                    if($parametrs){
-//                       foreach($parametrs as $k=>$v) {
-//                           if($v == "") continue;
-//                        $AdmindetailModel->updateParamsWhenChangingCategory($new_cat_id,$k,$v,$product_id);
-//                       }
-//                    }
-                    
-                  }else{//если категорию НЕ надо сменить
-//                      if($parametrs){
-//                           foreach($parametrs as $k=>$v) {
-//                            $p = explode("|",$k);
-//                            $AdmindetailModel->updateParams($p[0],$v,$product_id);
-//                           }
-//                      }
-//                      if($parametrs){
-//                          foreach ($parametrs as $k=>$v) {
-//                              if($v == "") continue;
-//                              $AdmindetailModel->addParams($k,$v,$product_id);
-//                          }
-//                      }
-                 } 
-//                  if($add_parametr){
-//                        foreach($add_parametr as $k=>$v) {
-//                        $p = explode("|",$k);
-//                        $AdmindetailModel->addParams($new_cat_id,$p[1],$v,$product_id);
-//                       }
-//                  }
-//                  if($new_parametr_name AND $new_parametr_val){
-//                    $param = array_combine($new_parametr_name, $new_parametr_val);
-//                    if($param){
-//                       foreach ($param as $k=>$v) {
-//                        $AdmindetailModel->addParams($new_cat_id,$k,$v,$product_id);
-//                       }
-//                    }
-//                  }
-                    
-                    
-                
-                  
-                  $result = $AdmindetailModel->updateProductTable($product_id,$name,$sku,$price,$old_price,$description,$new_thumb_img,$new_full_img,$title,$keywords,$seo_desc,$complete);
-
-                    //валютные махинации
-                    $ValuteModel = new ValuteModel();
-                    $ValuteModel->deleteValuta($product_id);//удаляем строку из таблицы валют в любом случае!
-                    if($valuta != "R"){//если не рубли
-                        //вставляем данные в таблицу valuta
-                        $ValuteModel->insertValute($product_id,$price,$old_price,$valuta);
-                        //обновляем цену продукта
-                        $ValuteModel->updateOnePrice($product_id,$price,$old_price,$valuta);
-                    }
-
-                    if ($_FILES['photo']['size']>0){
-                    if($thumb_img!='sm_default.jpg' AND $full_img!='default.jpg'){//удаляем старые фотки
-                            @unlink("images/product/".$thumb_img); 
-                            @unlink("images/product/".$full_img);
-                        }
                   }
+//
+                  $result = $AdmindetailModel->updateProductTable($product_id,$name,$sku,$price,$description,$new_full_img,$title,$keywords,$seo_desc);
 
-                    $CatModel = new CatModel();
-                  
-                  
-//                  $AdmindetailModel->delBuyTogether($product_id);
-//                  if($buy_together){
-//                    $AdmindetailModel->addBuyTogether($product_id,$buy_together);
-//                  }
-                      
+
                 $resData["success"] = 1;
                 $resData["cat"] = $new_cat_id;
-                $resData["predok"] = $CatModel->getPredok($new_cat_id);;
+                $resData["predok"] = $predok;
                    
                                       
                 }catch(Exception $e){
@@ -251,7 +200,7 @@ class AdmindetailController implements IController {
         $predok_cat_id = $CatModel->getPredok($cat_id);
         header("Location: /category/show/id/$predok_cat_id/#table$cat_id");
         $AdmindetailModel = new AdmindetailModel();
-        $AdmindetailModel->deleteProduct($product_id);
+        $AdmindetailModel->deleteProduct($product_id,$predok_cat_id);
         
         }else{
             throw new Exception("Нет параметров");
@@ -287,6 +236,8 @@ class AdmindetailController implements IController {
         $model->action  = "insert";
         $model->id = null;
         $model->cat_id = null;
+        $model->img_dir_name = null;
+        $model->predok_cat_id = null;
         $model->img_dir_name = null;
         $model->predok_cat_id = null;
 

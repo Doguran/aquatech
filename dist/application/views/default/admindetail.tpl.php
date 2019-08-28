@@ -154,9 +154,9 @@
                                 <td></td>
                                 <td>
                                     <?php if($this->full_img) : ?>
-                                        <?php $imgArr = json_decode($this->full_img,true);?>
+                                        <?php $imgArr = explode(",",$this->full_img);?>
                                         <?php if(is_array($imgArr)) : ?>
-                                            <?php foreach ($imgArr['img'] AS $v) :?>
+                                            <?php foreach ($imgArr AS $v) :?>
 
                                                     <img src="<?php echo HTTP_PATH ?>imgProduct/<?php echo $this->img_dir_name."/".$v; ?>" class="img-fluid" alt="<?php $this->name; ?>">
 
@@ -191,6 +191,8 @@
                         Keywords: <br /><textarea class="form-control" name="keywords"><?php echo $this->keywords; ?></textarea><br />
                         Description: <br /><textarea class="form-control" name="seo_desc"><?php echo $this->seo_desc; ?></textarea><br /><br />
                         <input type="hidden" value="<?php echo $this->cat_id; ?>" name='cat_id'>
+                        <input type="hidden" value="<?php echo $this->predok_cat_id; ?>" name='predok_cat_id'>
+                        <input type="hidden" value="<?php echo $this->img_dir_name; ?>" name='img_dir_name'>
                         <input type="hidden" value="<?php echo $this->id; ?>" name='product_id'>
                         <input type="hidden" name="full_img" value="<?php echo $this->full_img ?>"/>
                     </div>

@@ -98,24 +98,19 @@ class AdmindetailModel{
     
     
     
-    public function updateProductTable($product_id,$name,$sku,$price,$old_price,$description,$thumb_img,$full_img,$title,$keywords,$seo_desc,$complete){
+    public function updateProductTable($product_id,$name,$sku,$price,$description,$full_img,$title,$keywords,$seo_desc){
         
-       if(defined('PARAM')) $compare = 1; else $compare = 0;
+
         
        $product_id  = $this->_db->quote($product_id);
        $name        = $this->_db->quote($name);
        $sku         = $this->_db->quote($sku);
        $price       = $this->_db->quote($price);
-       $old_price   = $this->_db->quote($old_price);
        $description = $this->_db->quote($description);
-
-       $thumb_img   = $this->_db->quote($thumb_img);
        $full_img    = $this->_db->quote($full_img);
        $title       = $this->_db->quote($title);
        $keywords    = $this->_db->quote($keywords);
        $seo_desc    = $this->_db->quote($seo_desc);
-       $compare     = $this->_db->quote($compare);
-       $complete    = $this->_db->quote($complete);
 
        
            
@@ -123,15 +118,11 @@ class AdmindetailModel{
                 SET name        = $name,
                     sku         = $sku,
                     price       = $price,
-                    old_price   = $old_price,
-                    description = $description,
-                    thumb_img   = $thumb_img,
+                    shot_desc   = $description,
                     full_img    = $full_img,
                     title       = $title,
                     keywords    = $keywords,
-                    seo_desc    = $seo_desc,
-                    compare     = $compare,
-                    complete    = $complete
+                    seo_desc    = $seo_desc
                    
                 WHERE id        = $product_id
                 LIMIT 1";
@@ -387,19 +378,32 @@ public function getBuyTogether($product_id){
 }
 
     
-public function deleteProduct($product_id){
+public function deleteProduct($product_id,$predok_cat_id){
     $id   = $this->_db->quote($product_id);
-    
+
     //удаляем фотки
-    $sql = "SELECT thumb_img,full_img
+    $sql = "SELECT full_img
             FROM product
             WHERE id = $id";
     $stmt = $this->_db->query($sql); 
-    $img =  $stmt->fetch(PDO::FETCH_ASSOC); 
-    if($img["thumb_img"]!='sm_default.jpg' AND $img["full_img"]!='default.jpg'){//удаляем старые фотки
-        @unlink("images/product/".$img["thumb_img"]); 
-        @unlink("images/product/".$img["full_img"]);
-    }      
+    $img =  $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+    if($img) {
+        $catModel = new CatModel();
+        $nameArr = $catModel->getCatName($predok_cat_id);
+        $dirName = Helper::getChpu($nameArr["name"]);
+        $imgArr = json_decode($img["full_img"],true);
+
+                        if(is_array($imgArr)) {
+                            foreach ($imgArr['img'] AS $v) {
+                                @unlink("imgProduct".DIRECTORY_SEPARATOR.$dirName.DIRECTORY_SEPARATOR.$v);
+                            }
+        }
+    }
+
+
     
     //удаляем товар из таблицы product
     $sql = "DELETE FROM product
