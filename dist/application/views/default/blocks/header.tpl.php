@@ -9,13 +9,10 @@
             </div>
             <div class="col-md-6">
                 <ul class="nav justify-content-md-end justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Active</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
 
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link active" href="#">Active</a>-->
+<!--                    </li>-->
                     <?php if (isset($_SESSION["user"])) : ?>
                         <li class="nav-item"><a href="/cabinet/"
                                                 class="nav-link"
@@ -55,11 +52,9 @@
     <div class="container">
         <nav class="nav">
             <a class="nav-link" href="/adminorders/">Заказы</a>
+            <a class="nav-link" href="/exel/">Добавить из файла excel</a>
             <a class="nav-link" href="/admindetail/add/">Добавить товар</a>
-            <a class="nav-link" href="/adminarticle/add/">Добавить статью</a>
-            <a class="nav-link" href="/admincat/">Категории</a>
             <a class="nav-link" href="/valute/">Валюта</a>
-            <a class="nav-link" href="/kp/">КП(<span id="kp-count">0</span>)</a>
         </nav>
     </div>
     <?php endif; ?>

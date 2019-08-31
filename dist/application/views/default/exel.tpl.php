@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-
+        <?php if($this->sheets) :?>
         <div class="container mb-3">
 
             <div class="row">
@@ -48,11 +48,10 @@
             </div>
             <div class="row">
                 <div class="col">
-                    Выбор листов из файла для парсинга:
+                    Выбор листов из файла для парсинга (можно выбрать несколько):
                 </div>
             </div>
         </div>
-
         <form action="/exel/insert/" method="post">
             <select name="id[]" class="form-control" size="<?php echo $this->selectSize; ?>" multiple>
                 <?php foreach ($this->sheets AS $key=>$val) : ?>
@@ -65,6 +64,7 @@
                 </div>
             </div>
         </form>
+        <?php endif;?>
 
     </div>
     <div class="container mt-5">

@@ -61,15 +61,21 @@ class XlsxparserController implements IController {
     //unset($xml);
 
     public function parserXslxAllSheets() {
-        $workbookXml = simplexml_load_file($this->_path_to_xl.'xl/workbook.xml');
-        //преобразовываем в массив id и имя листа workbook.xml
-        $workbookArr = [];
-        foreach ($workbookXml->sheets->children() as $item) {
-            $namespaces                   = $item->getNameSpaces(TRUE);
-            $a                            = $item->attributes($namespaces['r']);
-            $workbookArr[(string) $a->id] = (string) $item->attributes()->name;
+
+        if(file_exists( $this->_path_to_xl.'xl/workbook.xml')){
+            $workbookXml = simplexml_load_file($this->_path_to_xl.'xl/workbook.xml');
+            //преобразовываем в массив id и имя листа workbook.xml
+            $workbookArr = [];
+            foreach ($workbookXml->sheets->children() as $item) {
+                $namespaces                   = $item->getNameSpaces(TRUE);
+                $a                            = $item->attributes($namespaces['r']);
+                $workbookArr[(string) $a->id] = (string) $item->attributes()->name;
+            }
+            return $workbookArr;
+        }else{
+            return false;
         }
-        return $workbookArr;
+
     }
 
     //unset($workbookXml);

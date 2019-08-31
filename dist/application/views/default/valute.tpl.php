@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Добавление товара</title>
+    <title>Валюта</title>
     <link href="<?php echo TEMPLATE_PATH ?>css/main.css" rel="stylesheet">
 
 
@@ -35,14 +35,14 @@
 
         <div class="col mb-5">
             <p>Текущий курс магазина:<br />
-                Доллар - <strong><?php echo $this->shop_dollar ?></strong><br />
+<!--                Доллар - <strong>--><?php //echo $this->shop_dollar ?><!--</strong><br />-->
                 Евро - <strong><?php echo $this->shop_evro ?></strong><br />
             </p>
             <p>Курс ЦБ на сегодня:<br />
 
             <form action="/valute/exchange/" method="post">
-                Доллар:<br />
-                <input type="text" name="dollar" class="form-control input-sm" style="width: 200px;" value="<?php echo $this->dollar ?>"/>
+<!--                Доллар:<br />-->
+                <input type="hidden" name="dollar" class="form-control input-sm" style="width: 200px;" value="<?php echo $this->dollar ?>"/>
 
                 Евро:<br />
                 <input type="text" name="evro" class="form-control input-sm" style="width: 200px;" value="<?php echo $this->evro ?>"/><br />

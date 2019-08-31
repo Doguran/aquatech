@@ -104,6 +104,10 @@ header {
 
   }
 }
+.table td, .table th {
+  vertical-align: middle;
+  padding-left: 15px;
+}
 table.exel{
   font-size: .8rem;
 }
@@ -254,4 +258,8 @@ a.pseudo-link:hover{
 }
 .mainCat {
   background: #ddd;
+}
+footer a {
+  color: #a4a1a1;
+  text-decoration: underline;
 }

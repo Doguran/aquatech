@@ -47,6 +47,7 @@ class ExelController implements IController {
 
                     $XlsxparserController = new XlsxparserController();
                     $sheets = $XlsxparserController->parserXslxAllSheets();
+
                     $model->sheets = $sheets;
                     $model->selectSize = count($sheets);
                     $model->message = $message;

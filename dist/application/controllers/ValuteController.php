@@ -68,8 +68,8 @@ class ValuteController implements IController {
                  $res = file_put_contents('valuta.data', $dollar.PHP_EOL.$evro, LOCK_EX);
                  
                  //обновляем цены в базе
-                 $ValuteModel = new ValuteModel();
-                 $ValuteModel->updatePrice($dollar,$evro);
+                 //$ValuteModel = new ValuteModel();
+                 //$ValuteModel->updatePrice($dollar,$evro);
                  
 //                 //обновляем YML
 //                 $Yml = new YmlController();
