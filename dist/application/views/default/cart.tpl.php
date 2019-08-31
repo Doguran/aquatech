@@ -20,9 +20,19 @@
 
         <?php foreach($this->cart as $val) : ?>
             <div class="row align-items-center text-center border-bottom" id="product_<?php echo $val["id"] ?>">
-                <div class="col-6 col-md-2"><img
-                                src='<?php echo HTTP_PATH ?>images/product/<?php echo $val["thumb_img"] ?>'
-                                class="img-fluid"></div>
+                <div class="col-6 col-md-2">
+                    <?php if($val["full_img"]) : ?>
+                        <?php $imgArr = json_decode($val["full_img"],true); ?>
+                        <?php if(is_array($imgArr)) : ?>
+                            <?php foreach ($imgArr['img'] AS $v) :?>
+                                <a data-fancybox="gallery1" href="<?php echo HTTP_PATH ?>imgProduct/<?php echo $val["imgDir"]."/".$v; ?>">
+                                    <img src="<?php echo HTTP_PATH ?>imgProduct/<?php echo $val["imgDir"]."/".$v; ?>" class="img-fluid" alt="<?php echo $val["name"] ?>">
+                                </a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+                </div>
                 <div class="col-6 col-md-4"><?php echo $val["name"] ?></div>
                 <div class="col-4 col-md-2">
                     <div class="text-center">

@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row my-3">
             <div class="col-md-3 d-flex justify-content-center justify-content-md-start">
-                <img src="http://i.imgur.com/WxI5l5D.jpg"  height="100" alt="">
+                <a href="/"><img src="http://i.imgur.com/WxI5l5D.jpg"  height="100" alt=""></a>
             </div>
             <div class="col-md-6">
                 <ul class="nav justify-content-md-end justify-content-center">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="col d-flex justify-content-center py-2">
-                        <div class="align-self-center  px-2"><a href="#" class="btn btn-primary" role="button">корзина (<span class="cart-counter"><?php echo QUANTITY; ?></span>)</a></div>
+                        <div class="align-self-center  px-2"><a href="/cart/" class="btn btn-primary" role="button">корзина (<span class="cart-counter"><?php echo QUANTITY; ?></span>)</a></div>
                     </div>
                 </div>
 

@@ -19,24 +19,48 @@ class BasketModel{
             $where[] = $this->_db->quote($key);
         }
         $wherein = implode(",", $where);
-        
-        $sql = "SELECT id,name,price,thumb_img,sku
+
+        $sql = "SELECT category.id AS cat_id,
+                product.id AS id,
+                product.name AS name,
+                product.sku AS sku,
+                product.price AS price,
+                product.full_img AS full_img,
+                category.name AS cat_name,
+                category.predok AS predok
                 FROM product
-                WHERE id IN (".$wherein.")
-                ORDER BY FIELD(id,".$wherein.")";
+                INNER JOIN category_product_xref
+        	       ON product.id = category_product_xref.product_id
+                INNER JOIN category
+        	       ON category.id = category_product_xref.category_id 
+       
+                WHERE product.id IN (".$wherein.")
+                ORDER BY FIELD(product.id,".$wherein.")";
+        
+//        $sql = "SELECT id,name,price,full_img,sku
+//                FROM product
+//                WHERE id IN (".$wherein.")
+//                ORDER BY FIELD(id,".$wherein.")";
         $stmt = $this->_db->query($sql); 
         //$productArr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $cartarray = array();
+        $CatModel = new CatModel();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             if($row["price"] == 0 || $row["price"] == "") continue;
+
+
+            $imgDir = $row["predok"] ? $CatModel->getCatName($row["predok"]) : $CatModel->getCatName($row["cat_id"]);
+            $price = round($row["price"]*EVRO, -1);
             
             $cartarray[] = array(
                 'id' => $row["id"],
                 'name' => $row["name"],
-                'price' => $row["price"],
+                'price' =>  $price*$_SESSION["cart"][$row["id"]]["quantity"],
                 'sku' => $row["sku"],
-                'thumb_img' => $row["thumb_img"],
-                'priceAll' => $row["price"]*$_SESSION["cart"][$row["id"]]["quantity"],
+                'full_img' => $row["full_img"],
+                'cat_name' => $row["cat_name"],
+                'imgDir' => Helper::getChpu($imgDir["name"]),
+                'priceAll' => $price*$_SESSION["cart"][$row["id"]]["quantity"],
                 'quantity' => $_SESSION["cart"][$row["id"]]["quantity"]
                 );
             
