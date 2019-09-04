@@ -34,7 +34,7 @@ class ParsernewsController implements IController {
                 if($oneNews["http_code"]==200 || $oneNews["http_code"]==304){
                     $htmlNews = str_get_html($oneNews['content']);
                     $data = trim($htmlNews->find('.meta',0)->plaintext);
-                    $post = $htmlNews->find('.post-content',0)->innertext;
+                    $post = $htmlNews->find('.post',0)->innertext;
 
                     $ParsernewsModel->insertNews($pid,$title,$anons,$data,$post);
 

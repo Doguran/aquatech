@@ -263,3 +263,26 @@ footer a {
   color: #a4a1a1;
   text-decoration: underline;
 }
+.slides {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+:focus {
+  outline:none;
+}
+.image-post {
+  margin: 40px 0;
+}
+.image-post img{
+  max-width: 100%;
+  height: auto;
+}
+.meta{
+  margin: 20px 0;
+  color: #6C757D;
+  font-size: .8em;
+}
+.card-body {
+  background: #E5E5EA;
+}
