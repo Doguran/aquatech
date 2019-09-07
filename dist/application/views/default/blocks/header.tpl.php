@@ -5,14 +5,18 @@
     <div class="container">
         <div class="row my-3">
             <div class="col-md-3 d-flex justify-content-center justify-content-md-start">
-                <a href="/"><img src="http://i.imgur.com/WxI5l5D.jpg"  height="100" alt=""></a>
+                <div class="logo-container">
+                    <a href="/"><img src="<?php echo TEMPLATE_PATH ?>img/logo.jpg"  height="100" alt=""></a>
+                    <div class="buyline">Розничный магазин <?php echo $_SERVER['HTTP_HOST']; ?></div>
+                </div>
+
             </div>
             <div class="col-md-6">
                 <ul class="nav justify-content-md-end justify-content-center">
 
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link active" href="#">Active</a>-->
-<!--                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/article/show/page/1/">Новости</a>
+                    </li>
                     <?php if (isset($_SESSION["user"])) : ?>
                         <li class="nav-item"><a href="/cabinet/"
                                                 class="nav-link"
@@ -54,6 +58,7 @@
             <a class="nav-link" href="/adminorders/">Заказы</a>
             <a class="nav-link" href="/exel/">Добавить из файла excel</a>
             <a class="nav-link" href="/admindetail/add/">Добавить товар</a>
+            <a class="nav-link" href="/adminedittext/contacttext/">Контакты</a>
             <a class="nav-link" href="/valute/">Валюта</a>
         </nav>
     </div>

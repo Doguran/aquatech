@@ -10,38 +10,7 @@
 <?php include("blocks/header.tpl.php"); ?>
 <main role="main">
 
-    <div class="container mt-5">
-        <div class="alert alert-dark" role="alert">
-            <form>
-                <div class="form-row">
-                    <div class="col-12 col-md-6 mb-3 mb-md-0 text-center text-md-left">
-                        <p class="mt-md-1 my-0">Курсы валюты</p>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="form-row">
-                            <!--                            <div class="col">-->
-                            <!--                                <div class="input-group">-->
-                            <!--                                    <div class="input-group-prepend">-->
-                            <!--                                        <span class="input-group-text" id="inputGroup-usd">USD</span>-->
-                            <!--                                    </div>-->
-                            <!--                                    <input type="text" class="form-control" aria-label="USD" aria-describedby="inputGroup-usd">-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                            <div class="col">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-evro">EVRO</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="EVRO" value="<?php echo EVRO; ?>" aria-describedby="inputGroup-evro" disabled
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+
 
 
     <div class="container">

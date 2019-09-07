@@ -9,6 +9,7 @@ $fa-font-path:  "../fonts";
 @import "node_modules/@fortawesome/fontawesome-free/scss/solid";
 @import "node_modules/@fortawesome/fontawesome-free/scss/regular";
 @import "node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:400&display=swap&subset=cyrillic-ext');
 
 
 //Прелоадер, пока сайт грузится
@@ -151,7 +152,7 @@ footer {
   display: none;
 }
 .admin-link-table{
-  visibility: hidden;
+  display: none;
 }
 table.exel tr:hover .admin-link-table{
   visibility: visible;
@@ -285,4 +286,26 @@ footer a {
 }
 .card-body {
   background: #E5E5EA;
+}
+.card-body:hover .admin-link-table, .product-item:hover .admin-link-table {
+  display: block;
+}
+.articles-page .admin-link-table.del, .articles-page .admin-link-table.edit {
+  top: auto;
+  bottom: 10px!important;
+}
+.admin-link-table.del {
+  right: 30px;
+}
+.admin-link-table.del, .admin-link-table.edit {
+  position: absolute;
+  top: 10px;
+}
+.logo-container {
+  text-align: center;
+}
+.buyline{
+  font-size: 1em;
+  color: #6B6665;
+  font-family: 'Comfortaa', cursive;
 }

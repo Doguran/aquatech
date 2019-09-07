@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<?php echo TEMPLATE_PATH ?>css/fancybox.css">
     <link rel="stylesheet" href="<?php echo TEMPLATE_PATH ?>css/jquery-ui.css">
     <link rel="stylesheet" href="<?php echo TEMPLATE_PATH ?>css/main.css">
-    <title>Hello, world!</title>
+    <title>Ваша корзина</title>
 </head>
 <body>
 <?php include("blocks/header.tpl.php"); ?>

@@ -11,8 +11,7 @@ class ParsernewsModel {
     protected $_db;
 
     public function __construct(){
-        if(!ADMIN)
-        throw new Exception("Нет доступа");
+
         $this->_db = DBConnect::run();
 
     }

@@ -45,6 +45,14 @@ class ArtModel{
                 LIMIT 1";
         $stmt = $this->_db->exec($sql); 
     }
+
+    public function hidenArticle($id){
+        $id = $this->_db->quote($id);
+        $sql="UPDATE news
+                SET vid=0
+              WHERE id=$id";
+        return $this->_db->exec($sql);
+    }
     
     public function insertArticle($name,$text,$title,$keywords,$seo_desc) {
         $name     = $this->_db->quote($name);

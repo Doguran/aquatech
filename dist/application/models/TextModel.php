@@ -19,7 +19,7 @@ class TextModel{
 
 
     public function getContact(){
-    $sql="SELECT mode,address,email,phone1,phone2,phone3,footer,maps
+    $sql="SELECT mode,address,email,phone1,phone2,phone3,footer,contact_text
             FROM contact";
     $stmt = $this->_db->query($sql); 
     return  $stmt->fetch(PDO::FETCH_ASSOC);        

@@ -24,7 +24,7 @@ class PaginationModel {
         $start = $this->openPage * $resultPerPage - $resultPerPage;
         $end = $resultPerPage;
         
-        $sql="SELECT id, title AS h1, anons AS text FROM $table ORDER BY parser_id DESC LIMIT $start,$end";
+        $sql="SELECT id, title AS h1, anons AS text FROM $table WHERE vid = 1 ORDER BY parser_id DESC LIMIT $start,$end";
         $stmt = $this->_db->query($sql); 
         $this->resultpage = $stmt->fetchAll(PDO::FETCH_ASSOC);
         

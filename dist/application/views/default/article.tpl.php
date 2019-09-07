@@ -29,7 +29,7 @@
         <?php If (ADMIN) : ?>
             <div class="btn-toolbar mb-3 ml-auto">
 <!--                <a href="/adminarticle/show/id/--><?php //echo $this->id ?><!--/" class="btn btn-sm btn-edit mr-4 edit"><i class="fas fa-edit"></i></a>-->
-                <a href="/adminarticle/delete/id/<?php echo $this->id ?>/" class="btn btn-sm btn-delete mr-4 del" onclick="return confirm('Удалить?');"><i class="fas fa-times-circle"></i></a>
+                <a href="/adminarticle/hiden/id/<?php echo $this->id ?>/" class="btn-delete mr-4 del" onclick="return confirm('Удалить?');"><i class="fas fa-times-circle"></i></a>
             </div>
         <?php endif ?>
         <div class="row mb-5">
@@ -61,13 +61,12 @@
                                 <a href="<?php echo HTTP_PATH ?>article/show/id/<?php echo $val["id"] ?>/" class="text-muted">Читать дальше...</a>
                             </p>
                             <?php If (ADMIN) : ?>
-                                <div class="admin-link-table edit"><a
-                                            href="/adminarticle/show/id/<?php echo $val["id"] ?>/"><i
-                                                class="fas fa-edit"></i></a></div>
+<!--                                <div class="admin-link-table edit"><a-->
+<!--                                            href="/adminarticle/show/id/--><?php //echo $val["id"] ?><!--/"><i-->
+<!--                                                class="fas fa-edit"></i></a></div>-->
                                 <div class="admin-link-table del"><a
-                                            href="/adminarticle/delete/id/<?php echo $val["id"] ?>/"
-                                            onclick="return confirm('Действительно удалить?');"><i
-                                                class="fas fa-times"></i></a></div>
+                                            href="/adminarticle/hiden/id/<?php echo $val["id"] ?>/"
+                                            onclick="return confirm('Действительно удалить?');"><i class="fas fa-times-circle"></i></a></div>
                             <?php endif ?>
                         </div>
                     </div>

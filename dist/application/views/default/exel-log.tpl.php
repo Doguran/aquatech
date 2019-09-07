@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="<?php echo TEMPLATE_PATH ?>css/main.css">
-    <title>Hello, world!</title>
+    <title>Excel</title>
 </head>
 <body>
 <?php include("blocks/header.tpl.php"); ?>
