@@ -27,7 +27,7 @@ class CatModel{
                 $this->indexCatId = $val["id"];
                 $this->_menu .= "<span class='nav-link active'>$val[name]</span><span class='sr-only'>(current)</span>\n";
             }else{
-                $this->_menu .= "<a class='nav-link' href='http://$_SERVER[HTTP_HOST]/category/show/id/$val[id]/'>$val[name]</a>\n";
+                $this->_menu .= "<a class='nav-link' href='http://$_SERVER[HTTP_HOST]/category/$val[id]/".Helper::getChpu($val["name"]).".html'>$val[name]</a>\n";
             }
             $this->_menu .= "</li>\n";
             $i++;
@@ -45,7 +45,7 @@ class CatModel{
             if($val["id"] == $cat_id){
                 $this->_menu .= "<span class='nav-link active'>$val[name]</span><span class='sr-only'>(current)</span>\n";
             }else{
-                $this->_menu .= "<a class='nav-link' href='http://$_SERVER[HTTP_HOST]/category/show/id/$val[id]/'>$val[name]</a>\n";
+                $this->_menu .= "<a class='nav-link' href='http://$_SERVER[HTTP_HOST]/category/$val[id]/".Helper::getChpu($val["name"]).".html'>$val[name]</a>\n";
             }
             $this->_menu .= "</li>\n";
         }
@@ -244,6 +244,14 @@ class CatModel{
 
     }
 
+    public function getCatData($cat_id){
+        $cat_id  = $this->_db->quote($cat_id);
+        $sql = "SELECT name,title,keywords,seo_desc,url
+                FROM category
+                WHERE id= $cat_id";
+        $stmt = $this->_db->query($sql);
+        return  $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
 
 

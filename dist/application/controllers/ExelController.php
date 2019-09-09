@@ -82,7 +82,7 @@ class ExelController implements IController {
                 $AdmincatModel = new AdmincatModel();
                 if(!$cat_id){//если категории нет - создаем ее
 
-                    $cat_id = $AdmincatModel->addCat($sheet[$rId],0,0,null,null,$sheet[$rId],null,null,null);
+                    $cat_id = $AdmincatModel->addCat($sheet[$rId],0,0,null,null,$sheet[$rId],null,null,null,Helper::getChpu($sheet[$rId]));
                     if($cat_id){
                         $this->_log .= "<br><br>Создана категория ".$sheet[$rId]."<br>";
                     }

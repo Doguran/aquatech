@@ -133,6 +133,8 @@ class AdmindetailController implements IController {
                     if($full_img){
                         $imgArr = explode(",",$full_img);
                         $new_full_img  = json_encode(array("img" => $imgArr));
+                    }else{
+                        $new_full_img = null;
                     }
                     if ($_FILES['photo']['size']>0){
                         //если есть новая фотка
@@ -160,6 +162,9 @@ class AdmindetailController implements IController {
                 $resData["success"] = 1;
                 $resData["cat"] = $new_cat_id;
                 $resData["predok"] = $predok;
+                $CatModel = new CatModel();
+                $url = $CatModel->getCatName($predok);
+                $resData["url"] = Helper::getChpu($url["name"]);
                    
                                       
                 }catch(Exception $e){
@@ -198,7 +203,9 @@ class AdmindetailController implements IController {
         $cat_id = abs((int)$params["cat"]);
         $CatModel = new CatModel();
         $predok_cat_id = $CatModel->getPredok($cat_id);
-        header("Location: /category/show/id/$predok_cat_id/#table$cat_id");
+        $url = $CatModel->getCatName($predok_cat_id);
+        $urlhtml = Helper::getChpu($url["name"]);
+        header("Location: /category/$predok_cat_id/$urlhtml.html#table$cat_id");
         $AdmindetailModel = new AdmindetailModel();
         $AdmindetailModel->deleteProduct($product_id,$predok_cat_id);
         
@@ -314,6 +321,9 @@ class AdmindetailController implements IController {
                     $resData["id"] = $product_id;
                     $resData["cat"] = $new_cat_id;
                     $resData["predok"] = $predok;
+                    $CatModel = new CatModel();
+                    $url = $CatModel->getCatName($predok);
+                    $resData["url"] = Helper::getChpu($url["name"]);
 
                 }catch(Exception $e){
                     $resData["success"] = 0;

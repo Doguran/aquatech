@@ -20,7 +20,7 @@
             <tr>
                 <th scope="row" class="bg-light"><?php echo $val["name"] ?>
                 <?php if(ADMIN) : ?>
-                    <div class="admin-link-table">
+                    <div class="admin-link">
                         <a href="/admindetail/delete/id/<?php echo $val["id"] ?>/cat/<?php echo $this->cat_id ?>/" class="del" onclick="return confirm('Действительно удалить?');"><i class="fas fa-times-circle"></i></a>
                         <a href="/admindetail/show/id/<?php echo $val["id"] ?>/" class="edit"><i class="fas fa-edit"></i></a>
                     </div>

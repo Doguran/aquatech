@@ -181,7 +181,7 @@ public function editCat($name,$cat_id,$pid,$predok,$before_text,$after_text,$tit
 }
 
 
-public function addCat($name,$pid,$predok,$before_text,$after_text,$title,$keywords,$seo_desc,$cat_img){
+public function addCat($name,$pid,$predok,$before_text,$after_text,$title,$keywords,$seo_desc,$cat_img,$url=null){
         $name   = $this->_db->quote($name);
         $pid    = $this->_db->quote($pid);
         $predok = $this->_db->quote($predok);
@@ -191,8 +191,9 @@ public function addCat($name,$pid,$predok,$before_text,$after_text,$title,$keywo
         $keywords = $this->_db->quote($keywords);
         $seo_desc = $this->_db->quote($seo_desc);
         $cat_img = $this->_db->quote($cat_img);
-        $sql="INSERT INTO category (parent_id,predok,name,before_text,after_text,title,keywords,seo_desc,img)
-                VALUES ($pid,$predok,$name,$before_text,$after_text,$title,$keywords,$seo_desc,$cat_img)";
+        $url = $this->_db->quote($url);
+        $sql="INSERT INTO category (parent_id,predok,name,before_text,after_text,title,keywords,seo_desc,img,url)
+                VALUES ($pid,$predok,$name,$before_text,$after_text,$title,$keywords,$seo_desc,$cat_img,$url)";
 
         if($this->_db->exec($sql)){
             return $this->_db->lastInsertId();
@@ -294,7 +295,7 @@ public function updateMainSort($sort,$id){
              VALUES (?,?,?,?,?,?)');
         $addProductCategoryStmt = $this->_db->prepare('INSERT INTO category_product_xref (category_id,product_id)
             VALUES (?,?)');
-        //$catid = $cat_id;
+        $catid = $cat_id;
         foreach($sheets AS $v){
             $product = array_filter($v,'strlen' );
             if($product){//проверка на пустоту

@@ -309,3 +309,15 @@ footer a {
   color: #6B6665;
   font-family: 'Comfortaa', cursive;
 }
+.admin-link a{
+  margin-right: 20px;
+}
+.admin-link a i{
+  font-size: 1.2em;
+}
+tr .admin-link {
+  visibility: hidden;
+}
+tr:hover .admin-link {
+  visibility: visible;
+}

@@ -83,23 +83,23 @@ class CategoryController implements IController {
     public function showAction() {
         $fc = FrontController::getInstance();
         $params = $fc->getParams();
-        
-        if(isset($params["id"])){
+
+        if(isset($params["id"]) and isset($params["url"])){
             
         $cat_id = abs((int)$params["id"]);
 
 
-
-
         //рисуем название главной категории
             $CatModel = new CatModel();
-            $cat_name = $CatModel->getCatName($cat_id);
-
-
+            $CatData = $CatModel->getCatData($cat_id);
+            if(!$CatData || $CatData["url"].".html"!=$params["url"]){
+                throw new Exception("Пока тут пусто...");
+            }
+            //$cat_name = $CatModel->getCatName($cat_id);
 
 
         //достаем товары этой категории - главной категории и присоединяем
-            $this->_drawTable($cat_id, $cat_name["name"], $cat_name["name"]);
+            $this->_drawTable($cat_id, $CatData["name"], $CatData["name"]);
 
 
         $model = new FileModel();
@@ -107,7 +107,7 @@ class CategoryController implements IController {
         $model->categories = $CatModel->getCatListForCatPage($cat_id);
         $model->table = $this->_output;
         $model->cat_id = $cat_id;
-        $model->cat_name = $cat_name["name"];
+        $model->cat_name = $CatData["name"];
         $output = $model->render(CAT_PAGE);
         $fc->setBody($output);
             

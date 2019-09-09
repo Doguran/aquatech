@@ -36,7 +36,7 @@
                                 },
                                 success: function (data) {
                                     if(data["success"]){
-                                        window.location.href = '/category/show/id/'+data["predok"]+'/#table'+data["cat"];
+                                        window.location.href = '/category/'+data["predok"]+'/'+data["url"]+'.html#table'+data["cat"];
                                     }else{
                                         $('.contact-message').show().html(data["msg"]);
                                     }
