@@ -55,11 +55,11 @@
                         <input  class="form-control" type="text" value="<?php echo $this->contact['mode']; ?>" name="mode" id="mode"  placeholder="Часы работы">
 
                     </div>
-<!--                    <div class="form-group col-md-6">-->
-<!--                        <label for="maps">Координаты на карте: широта, долгота</label>-->
-<!--                        <input  class="form-control" type="text" value="--><?php //echo $this->contact['contact_text']; ?><!--" name="contact_text">-->
-<!---->
-<!--                    </div>-->
+                    <div class="form-group col-md-6">
+                        <label for="maps">Координаты на карте: широта, долгота</label>
+                        <input  class="form-control" type="text" value="<?php echo $this->contact['maps']; ?>" name="maps">
+
+                    </div>
 
 <!--                    <div class="form-group col-12">-->
 <!--                        <label for="footer">Текст в футере</label>-->

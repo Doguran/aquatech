@@ -7,13 +7,15 @@
             <div class="col-md-3 d-flex justify-content-center justify-content-md-start">
                 <div class="logo-container">
                     <a href="/"><img src="<?php echo TEMPLATE_PATH ?>img/logo.jpg"  height="100" alt=""></a>
-                    <div class="buyline">Розничный магазин <?php echo $_SERVER['HTTP_HOST']; ?></div>
+                    <div class="buyline">Розничный магазин автомоечного оборудования</div>
                 </div>
 
             </div>
             <div class="col-md-6">
                 <ul class="nav justify-content-md-end justify-content-center">
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="/txt/contact/">Контакты</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/article/show/page/1/">Новости</a>
                     </li>
@@ -37,14 +39,18 @@
             </div>
             <div class="col-md-3 my-1 text-center mobil">
                 <div class="row">
-                    <div class="col d-flex justify-content-center py-2">
-                        <div class="align-self-center px-2">
-                            <span class="text-nowrap"><?php echo $_SESSION["contact"]["phone1"]; ?></span><br>
+                    <div class="py-2 w-100">
+
+                            <div class="text-nowrap text-center"><?php echo $_SESSION["contact"]["phone1"]; ?>
+                                <br>
                             <span class="d-none d-sm-inline"><?php echo $_SESSION["contact"]["email"]; ?></span>
-                        </div>
+                            </div>
+
                     </div>
-                    <div class="col d-flex justify-content-center py-2">
-                        <div class="align-self-center  px-2"><a href="/cart/" class="btn btn-primary" role="button">корзина (<span class="cart-counter"><?php echo QUANTITY; ?></span>)</a></div>
+                    <div class="py-2 w-100">
+
+                            <a href="/cart/" class="btn btn-primary" role="button">корзина (<span class="cart-counter"><?php echo QUANTITY; ?></span>)</a>
+
                     </div>
                 </div>
 

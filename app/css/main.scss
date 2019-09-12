@@ -305,8 +305,7 @@ footer a {
   text-align: center;
 }
 .buyline{
-  font-size: 1em;
-  color: #6B6665;
+  font-size: .9em;
   font-family: 'Comfortaa', cursive;
 }
 .admin-link a{
@@ -320,4 +319,43 @@ tr .admin-link {
 }
 tr:hover .admin-link {
   visibility: visible;
+}
+#map {
+  height: 40rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1024px) {
+  #map {
+    height: 25rem;
+  }
+  .contact-page h1{
+    font-size: 1.5em;
+    margin-bottom: 1em;
+  }
+}
+.contact-details, .contact-form {
+  background: #ffffff;
+  //padding: 3.4375rem 0;
+}
+
+.contact-form-content {
+  max-width: 37.5rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.contact-details-content address {
+  //border-left: 2px solid #939597;
+  padding-left: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+span.tel {
+  white-space: nowrap;
+}
+
+.contact-page footer {
+  margin-top: 0;
 }

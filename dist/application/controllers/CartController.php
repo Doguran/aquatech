@@ -430,8 +430,8 @@ class CartController implements IController {
                     $hdrs_admin = $mime_admin->headers($hdrs_admin);
 
                     $mail =& Mail::factory('smtp', array('host' => SMTP_HOST, 'debug' => false, 'pipelining' => false, 'port' => SMTP_PORT, 'auth' => true, 'username' => SMTP_USERNAME, 'password' => SMTP_PASSWORD));
-                    $admin_email = Helper::getAdminMail();
-                    $mail->send($admin_email, $hdrs_admin, $body);
+                    //$admin_email = Helper::getAdminMail();
+                    $mail->send(ADMIN_EMAIL, $hdrs_admin, $body);
 
                     
                     

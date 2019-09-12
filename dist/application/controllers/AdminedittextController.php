@@ -24,7 +24,7 @@ class AdminedittextController implements IController {
             $email   = Helper::clearData($_POST['email'],"email");
             $mode    = Helper::clearData($_POST['mode']);
             //$footer  = Helper::clearData($_POST['footer']);
-            //$maps  = Helper::clearData($_POST['maps']);
+            $maps  = Helper::clearData($_POST['maps']);
 
             
             $error = array();
@@ -33,11 +33,11 @@ class AdminedittextController implements IController {
             if(!$email) $error[] = "Неверный email";
             if(!$mode) $error[] = "Не указан режим работы";
             //if(!$footer) $error[] = "Не указан текст в футере";
-            //if(!$maps) $error[] = "Не указаны координаты";
+            if(!$maps) $error[] = "Не указаны координаты";
             
             if(empty($error)){
                 $AdminedittextModel= new AdminedittextModel();
-               $res = $AdminedittextModel->editContact ($phone1,$phone2,$address,$email,$mode);
+               $res = $AdminedittextModel->editContact ($phone1,$phone2,$address,$email,$mode,$maps);
                if($res) {
                    $_SESSION["contact"] = TextModel::getStaticContact();
                    header("Location: /");

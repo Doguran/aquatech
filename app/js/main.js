@@ -21,9 +21,11 @@ $(document).ready(function(){
     $(window).scroll(function() {
         if($(this).scrollTop() >= 290) {
             $('.mobil').addClass('stickytop');
+            $('.mobil>div.row>div').addClass('flex-fill').removeClass('w-100');
         }
         else{
             $('.mobil').removeClass('stickytop');
+            $('.mobil>div.row>div').removeClass('flex-fill').addClass('w-100');
         }
     });
 

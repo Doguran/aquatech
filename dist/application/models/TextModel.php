@@ -10,7 +10,7 @@ class TextModel{
     }
 
     public static function getStaticContact(){
-        $sql="SELECT mode,address,email,phone1,phone2,phone3,footer
+        $sql="SELECT mode,address,email,phone1,phone2,phone3,footer,maps
             FROM contact";
         $stmt = DBConnect::run()->query($sql);
         return  $stmt->fetch(PDO::FETCH_ASSOC);
@@ -19,7 +19,7 @@ class TextModel{
 
 
     public function getContact(){
-    $sql="SELECT mode,address,email,phone1,phone2,phone3,footer,contact_text
+    $sql="SELECT mode,address,email,phone1,phone2,phone3,footer,contact_text,maps
             FROM contact";
     $stmt = $this->_db->query($sql); 
     return  $stmt->fetch(PDO::FETCH_ASSOC);        

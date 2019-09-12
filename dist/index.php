@@ -17,6 +17,8 @@ define("EVRO",$valuta_arr[1]);
 
 define("COURIER_PRISE",500);// стоимость доставки курьером
 
+define("ADMIN_EMAIL",'portotecnica1@gmail.com');// на какую почту админу слать письма из корзины
+
 define('SMTP_HOST', 'mail.supermoika.ru');
 define('SMTP_PORT', '25');
 define('SMTP_USERNAME', 'no-reply@supermoika.ru');
