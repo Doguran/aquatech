@@ -359,3 +359,12 @@ span.tel {
 .contact-page footer {
   margin-top: 0;
 }
+.simplemarquee {
+  width: 278px;
+  overflow-wrap: normal;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.top-h {
+  min-height: 65px;
+}
