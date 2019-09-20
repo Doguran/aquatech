@@ -5,6 +5,7 @@
 //= control-modal-b4.js
 //= auth-modal.js
 //= add-to-cart.js
+//= phone-modal.js
 
 //Прелоадерg
 $(window).on('load', function () {
@@ -19,7 +20,6 @@ $(document).ready(function(){
     $('.simplemarquee').simplemarquee({
         speed: 40,
         cycles: 'Infinity'
-
     });
 });
 

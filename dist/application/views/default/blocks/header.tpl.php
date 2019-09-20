@@ -40,7 +40,7 @@
                         </ul>
                     </div>
                     <div class="py-2 w-100 text-center text-md-right">
-                        <div class="simplemarquee btn btn-info">
+                        <div class="simplemarquee btn btn-info call">
                             Закажи консультацию специалиста
                         </div>
                     </div>

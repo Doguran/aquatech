@@ -360,10 +360,8 @@ span.tel {
   margin-top: 0;
 }
 .simplemarquee {
-  width: 278px;
-  overflow-wrap: normal;
-  white-space: nowrap;
-  overflow: hidden;
+  width: 280px;
+  cursor: pointer;
 }
 .top-h {
   min-height: 65px;

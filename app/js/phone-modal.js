@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 
 
-    var myModal = new ModalApp.ModalProcess({ id: 'myPhoneModal', title: 'Заказ обратного звонка', size: 'modal-sm' });
+    var myModal = new ModalApp.ModalProcess({ id: 'myPhoneModal', title: 'Консультация специалиста', size: 'modal-sm' });
     myModal.init();
 
     $('.call').click(function(e){
